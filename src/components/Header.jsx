@@ -27,7 +27,9 @@ const Header = () => {
         </div>
 
         <div>
-          <i className="bi bi-cart text-light fs-5"></i>
+          <div className="hover px-3 py-2 rounded text-light">
+            <i className="bi bi-cart fs-5"></i>
+          </div>
         </div>
       </nav>
     </div>
