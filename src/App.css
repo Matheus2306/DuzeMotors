@@ -9,3 +9,14 @@ body {
   background: #fff;
   color: #ff0000 !important;
 }
+.hovertext:hover{
+  color: #ff0000;
+}
+
+.btnhover{
+  background: #e22121;
+}
+
+.btnhover:hover{
+  background: #b91c1c !important;
+}
