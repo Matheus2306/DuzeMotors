@@ -1,12 +1,16 @@
 
 import './App.css'
 import Header from './components/Header'
+import Section from './components/Section'
+import ClientesAvaliacao from './components/ClientesAvaliacao'
 
 function App() {
 
   return (
     <>
      <Header/>
+     <ClientesAvaliacao/>
+     <Section/>
 
      <hr style={{ margin: 0, border: 'none', borderTop: '1px solid #444' }} />
        
