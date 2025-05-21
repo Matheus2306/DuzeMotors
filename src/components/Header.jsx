@@ -22,10 +22,10 @@ const Header = () => {
           <span className="text-light fw-bold fs-5">DuzéMotors</span>
         </div>
         <div className="d-flex align-items-center text-light gap-5 fw-bold">
-          <span className="hovertext">Inicio</span>
-          <span className="hovertext">Catalogo</span>
-          <span className="hovertext">Sobre</span>
-          <span className="hovertext">Contato</span>
+          <span role="button" className="hovertext">Inicio</span>
+          <span role="button" className="hovertext">Catalogo</span>
+          <span role="button" className="hovertext">Sobre</span>
+          <span role="button" className="hovertext">Contato</span>
         </div>
 
         <div className="d-flex align-items-center gap-2">
