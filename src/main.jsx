@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import Chekout from './Pages/Chekout.jsx'
+import Cadastro from './Pages/Cadastro.jsx'
+import Login from './Pages/Login.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -13,6 +15,8 @@ createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/Checkout" element={<Chekout />} />
+      <Route path="/Cadastro" element={<Cadastro />} />
+      <Route path="/Login" element={<Login />} />
     </Routes>
     </BrowserRouter>
   </StrictMode>,

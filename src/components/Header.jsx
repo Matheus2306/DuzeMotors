@@ -10,6 +10,13 @@ const Header = () => {
   const handleCarrinhoClick = () => {
     navigate("/Checkout");
   };
+
+  const handlecadastroclick = () => {
+    navigate("/Cadastro");
+  }
+  const handleLoginClick = () => {
+    navigate("/Login");
+  }
   return (
     <div>
       <nav className="navbar bg-black navbar-expand-lg p-2 justify-content-around">
@@ -35,8 +42,8 @@ const Header = () => {
           >
             <i className="bi bi-cart fs-5"></i>
           </div>
-          <div className="text-light py-2 px-3 rounded hover">Login</div>
-          <div className="text-light py-2 px-3 rounded btnhover ">
+          <div role="button" onClick={handleLoginClick} className="text-light py-2 px-3 rounded hover">Login</div>
+          <div role="button" onClick={handlecadastroclick} className="text-light py-2 px-3 rounded btnhover ">
             Cadastrar
           </div>
         </div>
