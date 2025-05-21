@@ -7,45 +7,45 @@ const FeaturedMotos = () => {
 
   const motos = [
     {
-      image: 'https://images.unsplash.com/photo-1597006121567-740dbe3d7c3b?auto=format&fit=crop&w=800&q=80',
-      title: 'Moto Thunder 250',
+      image: 'src/IMG/download (2).png',
+      title: 'NEOS Connected',
       description: 'Alta performance para quem exige emoção e potência.',
-      price: 'R$ 18.990',
+      price: 'R$ 33.990,00',
       link: '#'
     },
     {
-      image: 'https://images.unsplash.com/photo-1610386111356-42158d3a07d3?auto=format&fit=crop&w=800&q=80',
-      title: 'Street Racer 300',
+      image: 'src/IMG/download (1).png',
+      title: 'FLUO ABS HYBRID CONNECTED',
       description: 'Design esportivo com tecnologia de ponta para as ruas.',
-      price: 'R$ 22.450',
+      price: 'R$ 16.690,00',
       link: '#'
     },
     {
       image: 'src/IMG/factor.avif',
       title: 'FACTOR 150 ED UBS0',
       description: 'Preparada para qualquer desafio com conforto e estilo.',
-      price: 'R$ 15.652,00',
+      price: 'R$ 18.790,00',
       link: '#'
     },
     {
-      image: 'src/IMG/fz15.avif',
-      title: 'FAZER FZ15 ABS CONNECTED',
+      image: 'src/IMG/motinha.avif',
+      title: 'MT-03 CONNECTED',
       description: 'Estilo esportivo com toque moderno para o dia a dia.',
-      price: 'R$ 20.390',
+      price: 'R$ 33.990,00',
       link: '#'
     },
     {
-        image: 'src/IMG/fz15.avif',
+        image: 'src/IMG/fz15.png',
         title: 'FAZER FZ15 ABS CONNECTED',
         description: 'Estilo esportivo com toque moderno para o dia a dia.',
-        price: 'R$ 20.390',
+        price: 'R$ 20.990',
         link: '#'
       },
       {
-        image: 'src/IMG/fz15.avif',
-        title: 'FAZER FZ15 ABS CONNECTED',
+        image: 'src/IMG/fz25.png',
+        title: 'FAZER FZ25 CONNECTED',
         description: 'Estilo esportivo com toque moderno para o dia a dia.',
-        price: 'R$ 20.390',
+        price: 'R$ 24.990',
         link: '#'
       }
   ];
