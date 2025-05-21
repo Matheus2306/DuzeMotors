@@ -2,14 +2,20 @@
 import './App.css'
 import Header from './components/Header'
 import Banner from './components/Banner' 
+import Section from './components/Section'
+import ClientesAvaliacao from './components/ClientesAvaliacao'
+import FeatureMotos from './components/FeatureMotos'
+
 
 function App() {
 
   return (
     <>
      <Header/>
-     <hr style={{ margin: 0, border: 'none', borderTop: '1px solid #444' }} />
      <Banner/>
+      <Section/>
+      <FeatureMotos/>
+      <ClientesAvaliacao/>
     </>
   )
 }

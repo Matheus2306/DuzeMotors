@@ -21,9 +21,15 @@ const Banner = () => {
           <button className="btn btn-danger btn-lg">
             Ver Catálogo →
           </button>
-          <button className="btn btn-light btn-lg text-dark">
-            Agendar Test Ride
-          </button>
+          <a
+         href="https://wa.me/551436028600"
+         target="_blank"
+         rel="noopener noreferrer"
+         className="btn btn-light btn-lg text-dark"
+        >
+        Agendar Test Ride
+        </a>
+          
         </div>
       </div>
     </section>

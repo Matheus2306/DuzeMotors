@@ -53,7 +53,14 @@ const ClientesAvaliacao = () => {
           nossos modelos e ofertas especiais.
         </p>
         <div className="d-flex justify-content-center gap-3 mt-4">
-          <button className="btn btn-light fw-bold">Fale Conosco</button>
+        <a
+  href="https://wa.me/551436028600"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="btn btn-light fw-bold"
+>
+  Fale Conosco
+</a>
           <button className="btn btn-light fw-bold" onClick={abrirModal}>
             Ver Localização
           </button>
