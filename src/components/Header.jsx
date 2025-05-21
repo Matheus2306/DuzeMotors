@@ -7,14 +7,17 @@ const Header = () => {
   const handleLogoClick = () => {
     navigate("/");
   };
+  const handleCarrinhoClick = () => {
+    navigate("/Checkout");
+  };
   return (
     <div>
-      <nav
-        className="navbar bg-black navbar-expand-lg p-2 justify-content-around"
-        onClick={handleLogoClick}
-        role="button"
-      >
-        <div className="d-flex align-items-center gap-2">
+      <nav className="navbar bg-black navbar-expand-lg p-2 justify-content-around">
+        <div
+          className="d-flex align-items-center gap-2"
+          onClick={handleLogoClick}
+          role="button"
+        >
           <i className="bi bi-bicycle text-danger fs-2"></i>
           <span className="text-light fw-bold fs-5">DuzéMotors</span>
         </div>
@@ -26,12 +29,13 @@ const Header = () => {
         </div>
 
         <div className="d-flex align-items-center gap-2">
-          <div className="hover px-3 py-2 rounded text-light">
+          <div
+            className="hover px-3 py-2 rounded text-light"
+            onClick={handleCarrinhoClick}
+          >
             <i className="bi bi-cart fs-5"></i>
           </div>
-          <div className="text-light py-2 px-3 rounded hover">
-            Login
-          </div>
+          <div className="text-light py-2 px-3 rounded hover">Login</div>
           <div className="text-light py-2 px-3 rounded btnhover ">
             Cadastrar
           </div>

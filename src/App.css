@@ -18,11 +18,15 @@ body {
 }
 
 .btnhover {
-  background: #e22121;
+  background: #e22121 !important;
 }
 
 .btnhover:hover {
   background: #b91c1c !important;
+}
+
+.text{
+  color: #e22121;
 }
 
 .bgcolorFooter {

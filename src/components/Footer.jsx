@@ -82,17 +82,17 @@ const Footer = () => {
         <div className="w-25 d-flex flex-column gap-2">
           <span className="fw-bold fs-5 mb-2">Contato</span>
           <div className="d-flex align-items-center gap-2">
-            <i class="bi bi-geo-alt-fill text-danger fs-5"></i>
+            <i className="bi bi-geo-alt-fill text-danger fs-5"></i>
             <span className="fs-6 textcolorfooter w-50">
               Avenida Miguel Inácio Curi 111, São Paulo
             </span>
           </div>
           <div className="w-50 d-flex align-items-center gap-2">
-            <i class="bi bi-telephone text-danger fs-5"></i>
+            <i className="bi bi-telephone text-danger fs-5"></i>
             <span className="fs-6 textcolorfooter">+55 (14) 3602-8600</span>
           </div>
           <div className="w-50 d-flex align-items-center gap-2">
-            <i class="bi bi-envelope text-danger fs-5"></i>
+            <i className="bi bi-envelope text-danger fs-5"></i>
             <span className="textcolorfooter">DuzéMotors@gmail.com</span>
           </div>
         </div>

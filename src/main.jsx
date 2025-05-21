@@ -5,12 +5,14 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
+import Chekout from './Pages/Chekout.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/Checkout" element={<Chekout />} />
     </Routes>
     </BrowserRouter>
   </StrictMode>,
