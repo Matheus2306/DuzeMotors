@@ -43,3 +43,374 @@ input {
   box-shadow: none !important;
   border: none !important;
 }
+@import "animate.css";
+
+.not-found-bg {
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  background-image: radial-gradient(circle at 10% 20%, rgba(229, 62, 62, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(229, 62, 62, 0.1) 0%, transparent 20%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.error-card {
+  background-color: #222;
+  border-radius: 15px;
+  padding: 3rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: 900;
+  color: #dc3545;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(220, 53, 69, 0.5), 0 0 20px rgba(220, 53, 69, 0.3), 0 0 30px rgba(220, 53, 69, 0.1);
+  position: relative;
+}
+
+.error-code::before,
+.error-code::after {
+  content: "404";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(220, 53, 69, 0.3);
+}
+
+.error-code::before {
+  transform: translate(-5px, -5px);
+}
+
+.error-code::after {
+  transform: translate(5px, 5px);
+}
+
+h1 {
+  color: #f8f9fa;
+  font-weight: 700;
+}
+
+.lead {
+  color: #e9ecef;
+  font-size: 1.25rem;
+}
+
+p {
+  color: #adb5bd;
+}
+
+/* Road and Motorcycle Animation */
+.road-container {
+  position: relative;
+  height: 120px;
+  margin: 40px 0;
+  overflow: hidden;
+}
+
+.road {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #343a40;
+  border-radius: 5px;
+}
+
+.road-line {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  background: repeating-linear-gradient(90deg, #f8f9fa, #f8f9fa 20px, transparent 20px, transparent 40px);
+  animation: roadMove 1s linear infinite;
+}
+
+.motorcycle-container {
+  position: absolute;
+  bottom: 20px;
+  left: -100px;
+  animation: driveIn 2s forwards, bounce 1s infinite;
+}
+
+.motorcycle {
+  position: relative;
+  width: 100px;
+  height: 50px;
+}
+
+.motorcycle-body {
+  position: absolute;
+  width: 60px;
+  height: 25px;
+  background-color: #dc3545;
+  bottom: 15px;
+  left: 20px;
+  border-radius: 8px 12px 3px 3px;
+  z-index: 2;
+}
+
+.handle {
+  position: absolute;
+  width: 15px;
+  height: 10px;
+  background-color: #6c757d;
+  top: -10px;
+  left: 5px;
+  border-radius: 5px 5px 0 0;
+}
+
+.seat {
+  position: absolute;
+  width: 20px;
+  height: 8px;
+  background-color: #343a40;
+  top: -8px;
+  right: 10px;
+  border-radius: 3px;
+}
+
+.front-wheel,
+.back-wheel {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+
+.front-wheel {
+  left: 10px;
+}
+
+.back-wheel {
+  right: 10px;
+}
+
+.wheel {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #343a40;
+  border: 3px solid #6c757d;
+  position: relative;
+  animation: rotate 0.5s linear infinite;
+}
+
+.wheel::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #6c757d 0%, #6c757d 30%, transparent 30%, transparent 100%);
+}
+
+.exhaust {
+  position: absolute;
+  left: 5px;
+  bottom: 10px;
+  z-index: 0;
+}
+
+.smoke {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(173, 181, 189, 0.7);
+  animation: smoke 2s linear infinite;
+}
+
+.smoke:nth-child(1) {
+  animation-delay: 0s;
+}
+.smoke:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.smoke:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.smoke:nth-child(4) {
+  animation-delay: 1.2s;
+}
+.smoke:nth-child(5) {
+  animation-delay: 1.6s;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.shadow-hover {
+  transition: all 0.3s ease;
+}
+
+.shadow-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Countdown */
+.countdown-container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.countdown-text {
+  font-size: 1rem;
+  color: #adb5bd;
+}
+
+.countdown-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #dc3545;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+/* Floating Gears */
+.floating-gears {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gear {
+  position: absolute;
+  color: rgba(173, 181, 189, 0.1);
+  animation: rotate linear infinite;
+}
+
+.gear-1 {
+  top: 10%;
+  right: 10%;
+  font-size: 60px;
+  animation-duration: 20s;
+}
+
+.gear-2 {
+  bottom: 15%;
+  left: 5%;
+  font-size: 40px;
+  animation-duration: 15s;
+  animation-direction: reverse;
+}
+
+.gear-3 {
+  top: 60%;
+  right: 15%;
+  font-size: 50px;
+  animation-duration: 25s;
+}
+
+/* Animations */
+@keyframes roadMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -40px 0;
+  }
+}
+
+@keyframes driveIn {
+  0% {
+    left: -100px;
+  }
+  100% {
+    left: 40%;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes smoke {
+  0% {
+    opacity: 0.8;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-30px, -20px) scale(3);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .error-card {
+    padding: 2rem;
+  }
+
+  .error-code {
+    font-size: 80px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .motorcycle-container {
+    animation: driveIn 2s forwards, bounce 1s infinite;
+  }
+
+  @keyframes driveIn {
+    0% {
+      left: -100px;
+    }
+    100% {
+      left: 30%;
+    }
+  }
+}
