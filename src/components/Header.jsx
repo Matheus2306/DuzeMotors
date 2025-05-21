@@ -7,7 +7,6 @@ const Header = () => {
   const handleLogoClick = () => {
     navigate("/");
   };
-
   return (
     <div>
       <nav
@@ -20,15 +19,21 @@ const Header = () => {
           <span className="text-light fw-bold fs-5">DuzéMotors</span>
         </div>
         <div className="d-flex align-items-center text-light gap-5 fw-bold">
-          <span>Inicio</span>
-          <span>Catalogo</span>
-          <span>Sobre</span>
-          <span>Contato</span>
+          <span className="hovertext">Inicio</span>
+          <span className="hovertext">Catalogo</span>
+          <span className="hovertext">Sobre</span>
+          <span className="hovertext">Contato</span>
         </div>
 
-        <div>
+        <div className="d-flex align-items-center gap-2">
           <div className="hover px-3 py-2 rounded text-light">
             <i className="bi bi-cart fs-5"></i>
+          </div>
+          <div className="text-light py-2 px-3 rounded hover">
+            Login
+          </div>
+          <div className="text-light py-2 px-3 rounded btnhover ">
+            Cadastrar
           </div>
         </div>
       </nav>
