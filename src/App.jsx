@@ -6,7 +6,6 @@ import Banner from './components/Banner'
 import Section from './components/Section'
 import ClientesAvaliacao from './components/ClientesAvaliacao'
 import FeatureMotos from './components/FeatureMotos'
-import Footer from './components/Footer'
 
 
 function App() {
