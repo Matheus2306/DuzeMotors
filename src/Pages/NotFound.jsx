@@ -35,7 +35,7 @@ const NotFound = () => {
           <div className="error-card animate__animated animate__fadeIn">
             <div className="error-code animate__animated animate__bounceIn">404</div>
 
-            <h1 className="text-center mb-4 animate__animated animate__fadeInDown">Página não encontrada</h1>
+            <h1 className="text-center mb-4 text-light animate__animated animate__fadeInDown">Página não encontrada</h1>
 
             <div className="road-container">
               <div className="road">

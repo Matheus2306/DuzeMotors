@@ -43,7 +43,6 @@ input {
   box-shadow: none !important;
   border: none !important;
 }
-@import "animate.css";
 
 .not-found-bg {
   min-height: 100vh;
@@ -348,7 +347,7 @@ p {
     left: -100px;
   }
   100% {
-    left: 40%;
+    left: 50%;
   }
 }
 
