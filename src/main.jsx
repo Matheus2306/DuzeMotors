@@ -9,6 +9,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import Chekout from './Pages/Chekout.jsx'
 import Cadastro from './Pages/Cadastro.jsx'
 import Login from './Pages/Login.jsx'
+import NotFound from './Pages/NotFound.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/Login" element={<Login />} />
       <Route path="/catalogo" element={<Catalogo />} />
       
+      <Route path="*" element={<NotFound />} />
     </Routes>
     </BrowserRouter>
   </StrictMode>,
