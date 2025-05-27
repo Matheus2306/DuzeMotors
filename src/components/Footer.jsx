@@ -1,9 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router";
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  const Navigate = useNavigate();
 
-    const currentYear = new Date().getFullYear();
-
-
+  const handleNavigationHome = () => {
+    Navigate("/");
+  };
+  const handleNavigationCatalogo = () => {
+    Navigate("/catalogo");
+  };
+  const handleNavigationSobreNos = () => {
+    Navigate("/sobre-nos");
+  };
+  const handleNavigationContato = () => {
+    Navigate("/contato");
+  };
+  const handleNavigationPoliticaPrivacidade = () => {
+    Navigate("/politica-privacidade");
+  };
   return (
     <footer className="bgcolorFooter w-100 py-3 px-4 text-light ">
       <div className="d-flex w-100">
@@ -45,39 +60,90 @@ const Footer = () => {
         </div>
         <div className="w-25 d-flex flex-column">
           <span className="fw-bold fs-5 mb-2">Links Rapidos</span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          <span
+            role="button"
+            onClick={handleNavigationHome}
+            className="textcolorfooter hovericonFooter"
+          >
             Inicio
           </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          <span
+            role="button"
+            onClick={handleNavigationCatalogo}
+            className="textcolorfooter hovericonFooter"
+          >
             Catalogo
           </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          <span
+            role="button"
+            onClick={handleNavigationSobreNos}
+            className="textcolorfooter hovericonFooter"
+          >
             Sobre Nós
           </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          <a
+            href="https://wa.me/551436028600"
+            role="button"
+            className="textcolorfooter hovericonFooter text-decoration-none"
+            target="_blank"
+          >
             Contato
-          </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          </a>
+          <span
+            role="button"
+            onClick={handleNavigationPoliticaPrivacidade}
+            className="textcolorfooter hovericonFooter"
+          >
             Política de Privacidade
           </span>
         </div>
         <div className="w-25 d-flex flex-column">
           <span className="fw-bold fs-5 mb-2">Serviços</span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          <a
+            href="https://wa.me/551436028600"
+            role="button"
+            className="textcolorfooter hovericonFooter text-decoration-none"
+            target="_blank"
+          >
             Venda de Motos
-          </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          </a>
+
+          <a
+            href="https://wa.me/551436028600"
+            role="button"
+            className="textcolorfooter hovericonFooter text-decoration-none"
+            target="_blank"
+          >
             Manutenção
-          </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
-            Peças e Acessórios
-          </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
-            Financiamento
-          </span>
-          <span role="button" className="textcolorfooter hovericonFooter">
+          </a>
+
+          <a
+            href="https://wa.me/551436028600"
+            role="button"
+            className="textcolorfooter hovericonFooter text-decoration-none"
+            target="_blank"
+          >
+            Peças e acessórios
+          </a>
+
+          <a
+            href="https://wa.me/551436028600"
+            role="button"
+            className="textcolorfooter hovericonFooter text-decoration-none"
+            target="_blank"
+          >
+            Financiamneto
+          </a>
+
+          <a
+            href="https://wa.me/551436028600"
+            role="button"
+            className="textcolorfooter hovericonFooter text-decoration-none"
+            target="_blank"
+          >
             Seguro
-          </span>
+          </a>
+
         </div>{" "}
         <div className="w-25 d-flex flex-column gap-2">
           <span className="fw-bold fs-5 mb-2">Contato</span>
@@ -98,7 +164,9 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-100 text-center p-4">
-        <span className="textcolorfooter">@{currentYear} DuZéMotors. Todos os direitos reservados.</span>
+        <span className="textcolorfooter">
+          @{currentYear} DuZéMotors. Todos os direitos reservados.
+        </span>
       </div>
     </footer>
   );

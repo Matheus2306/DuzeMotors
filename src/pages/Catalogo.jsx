@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FiltroCatalogo from '../components/FiltroCatalogo';
-import MotoCardCatalogo from '../components/MotoCardCatalogo';
+import FiltroCatalogo from '../components/Catalogo/FiltroCatalogo';
+import MotoCardCatalogo from '../components/Catalogo/MotoCardCatalogo';
 
 const motos = [
   // HONDA
