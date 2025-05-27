@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const Formulario = () => {
@@ -11,17 +11,37 @@ const Formulario = () => {
     navigate("/cadastro");
   };
 
+  useEffect(() => {
+    // Verifica se já existe algum cadastro no localStorage
+    const cadastros =
+      JSON.parse(localStorage.getItem("usuariosCadastro")) || [];
+    // Adiciona a conta padrão de administrador se ainda não existir
+    const admExists = cadastros.some(
+      (cadastro) => cadastro.email === "adm@adm.com"
+    );
+    if (!admExists) {
+      cadastros.push({
+        nome: "Administrador",
+        email: "adm@adm.com",
+        senha: "1234",
+        cpf: "000000000",
+        Role: "ADM",
+      });
+      localStorage.setItem("usuariosCadastro", JSON.stringify(cadastros));
+    }
+  }, []);
   //salvar o usuario em um localstorage
   const handleLogin = () => {
     if (email && senha) {
-      //verifica se o usuario existe no localStorage
       const usuarios =
         JSON.parse(localStorage.getItem("usuariosCadastro")) || [];
+      //verifica se o usuario existe no localStorage
       const usuario = usuarios.find(
         (usuario) => usuario.email === email && usuario.senha === senha
       );
       //se o usuario existir, salva no localstorege
       if (usuario) {
+        //cria um localStorage com o usuario logado
         localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
         navigate("/");
         return;
@@ -51,7 +71,7 @@ const Formulario = () => {
             Email
           </label>
           <input
-            type="text"
+            type="email"
             id="Email"
             className="form-control"
             onChange={(e) => setEmail(e.target.value)}

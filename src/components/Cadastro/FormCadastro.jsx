@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Inputlabel from "./Inputlabel";
 import { useNavigate } from "react-router";
 
@@ -7,7 +7,7 @@ const FormCadastro = () => {
   const [Nome, setNome] = useState("");
   const [Email, setEmail] = useState("");
   const [CPF, setCPF] = useState("");
-  const Role = "cliente";
+  const [Role, setRole] = useState("user"); // Define o papel padrão como 'user'
   const navigate = useNavigate();
   const [erro, seterro] = useState(false);
 
@@ -46,7 +46,18 @@ const FormCadastro = () => {
 
       <div className="w-100 d-flex flex-column justify-content-center align-items-center mt-4">
         <Inputlabel label="Nome" placeholder="Nome" onchange={setNome} />
-        <Inputlabel label="Email" placeholder="Email" onchange={setEmail} />
+        <div className="w-75">
+          <label htmlFor="Email" className="mb-2 mx-2">
+            Email
+          </label>
+          <input
+            type="email"
+            id="Email"
+            className="form-control mb-3"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
         <div className="w-75">
           <label htmlFor="Email" className="mb-2">
             Senha
@@ -71,11 +82,15 @@ const FormCadastro = () => {
       <div className="mt-3">
         <span
           onClick={criarUsuario}
-          className="p-2 btnhover text-light rounded-2"
+          className="py-2 px-3 btnhover text-light rounded-2"
           role="button"
         >
           Criar
         </span>
+      </div>
+      <div className="d-flex mt-4 align-items-center gap-2">
+        <i className="bi bi-bicycle fs-3 text-danger"></i>
+        <span className="fs-5 fw-semibold">DuZéMotors</span>
       </div>
     </div>
   );
