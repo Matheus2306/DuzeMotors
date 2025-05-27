@@ -12,6 +12,7 @@ import Login from './Pages/Login.jsx'
 import NotFound from './Pages/NotFound.jsx'
 import Sobre from './Pages/Sobre.jsx'
 import Perfil from './components/Login/Perfil.jsx'
+import DetalhesMoto from './Pages/DetalhesMoto.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -23,6 +24,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="/Login" element={<Login />} />
       <Route path="/catalogo" element={<Catalogo />} />
       <Route path="/Sobre" element={<Sobre />} />
+      <Route path="/moto/:id" element={<DetalhesMoto />} />
+      
       <Route path="*" element={<NotFound />} />
       <Route path="/perfil" element={<Perfil />} />
     </Routes>
