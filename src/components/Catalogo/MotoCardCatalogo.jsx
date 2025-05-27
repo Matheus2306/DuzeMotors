@@ -1,6 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 const MotoCardCatalogo = ({ moto }) => {
+const navigate = useNavigate();
+const information = () => {
+  return {
+   ...moto
+  };
+};
+  const handleDetailsClick = () => {
+    navigate(`/moto/${moto.id}`, {state: {Motos:information()}});
+  };
+
   return (
     <div className="col-md-4">
       <div className="card h-100 shadow-sm">
@@ -27,7 +38,7 @@ const MotoCardCatalogo = ({ moto }) => {
             )}
           </div>
           <div className="mt-auto d-flex justify-content-between">
-            <button className="btn btn-outline-danger btn-sm">Ver Detalhes</button>
+            <button className="btn btn-outline-danger btn-sm" onClick={handleDetailsClick}>Ver Detalhes</button>
             <button className="btn btn-danger btn-sm">
               <i className="bi bi-cart"></i> Adicionar
             </button>
