@@ -28,11 +28,11 @@ const Formulario = () => {
   return (
     <form className="w-25 h-50 p-3 bg-light rounded-3 shadow">
       <div className="d-flex flex-column justify-content-center align-items-center">
-        <span className="fw-semibold fs-4 py-2">Login</span>
+        <span className="fw-semibold fs-4 py-2">Entrar</span>
       </div>
       <div className="d-flex flex-column justify-content-center gap-3 align-items-center h-50">
         <div className="w-75">
-          <label htmlFor="Email" className="mb-2">
+          <label htmlFor="Email" className="mb-2 mx-2">
             Email
           </label>
           <input
@@ -44,7 +44,7 @@ const Formulario = () => {
           />
         </div>
         <div className="w-75">
-          <label htmlFor="Senha" className="mb-2">
+          <label htmlFor="Senha" className="mb-2 mx-2">
             Senha
           </label>
           <input

@@ -42,7 +42,7 @@ const Header = () => {
           >
             <i className="bi bi-cart fs-5"></i>
           </div>
-          <div role="button" onClick={handleLoginClick} className="text-light py-2 px-3 rounded hover">Login</div>
+          <div role="button" onClick={handleLoginClick} className="text-light py-2 px-3 rounded hover">Entrar</div>
           <div role="button" onClick={handlecadastroclick} className="text-light py-2 px-3 rounded btnhover ">
             Cadastrar
           </div>
