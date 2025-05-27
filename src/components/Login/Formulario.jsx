@@ -17,7 +17,7 @@ const Formulario = () => {
       email: email,
       senha: senha,
     };
-    if (email != "" || senha != "") {
+    if (email != "" && senha != "") {
       localStorage.setItem("usuario", JSON.stringify(usuario));
       navigate("/");
     }else{
