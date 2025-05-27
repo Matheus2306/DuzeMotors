@@ -11,6 +11,7 @@ import Cadastro from './Pages/Cadastro.jsx'
 import Login from './Pages/Login.jsx'
 import NotFound from './Pages/NotFound.jsx'
 import Sobre from './Pages/Sobre.jsx'
+import Perfil from './components/Login/Perfil.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/catalogo" element={<Catalogo />} />
       <Route path="/Sobre" element={<Sobre />} />
       <Route path="*" element={<NotFound />} />
+      <Route path="/perfil" element={<Perfil />} />
     </Routes>
     </BrowserRouter>
   </StrictMode>,

@@ -531,3 +531,55 @@ p {
   text-align: center;
   margin-top: 20px;
 }
+
+.perfil-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.perfil-titulo {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #e63946; /* cor da concessionária */
+}
+
+.perfil-secao {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.perfil-secao label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.perfil-secao input,
+.perfil-secao select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.perfil-botao-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn-acao {
+  background-color: #e63946;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-acao:hover {
+  background-color: #ff4b5c;
+}
