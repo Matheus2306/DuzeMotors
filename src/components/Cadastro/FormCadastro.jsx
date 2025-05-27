@@ -14,11 +14,10 @@ const FormCadastro = () => {
   //função para criar o usuario e armazenar no localStorage
   const criarUsuario = () => {
     if (!Nome || !Email || !Senha || !CPF) {
-        seterro(true);
-        setTimeout(() => {
-            seterro(false);
-            }
-        , 3500);
+      seterro(true);
+      setTimeout(() => {
+        seterro(false);
+      }, 3500);
       return;
     } else {
       const usuario = {
@@ -37,7 +36,7 @@ const FormCadastro = () => {
         "usuariosCadastro",
         JSON.stringify(usuariosExistentes)
       );
-      navigate("/");
+      navigate("/login");
     }
   };
 
