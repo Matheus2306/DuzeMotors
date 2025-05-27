@@ -14,7 +14,7 @@ body {
   color: #ff0000 !important;
 }
 .hovertext:hover {
-  color: #ff0000;
+  color: #ff0000 !important;
 }
 
 .btnhover {
