@@ -11,11 +11,9 @@ const Footer = () => {
     Navigate("/catalogo");
   };
   const handleNavigationSobreNos = () => {
-    Navigate("/sobre-nos");
+    Navigate("/sobre");
   };
-  const handleNavigationContato = () => {
-    Navigate("/contato");
-  };
+ 
   const handleNavigationPoliticaPrivacidade = () => {
     Navigate("/politica-privacidade");
   };

@@ -10,6 +10,7 @@ import Chekout from './Pages/Chekout.jsx'
 import Cadastro from './Pages/Cadastro.jsx'
 import Login from './Pages/Login.jsx'
 import NotFound from './Pages/NotFound.jsx'
+import Sobre from './Pages/Sobre.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,7 +21,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/Cadastro" element={<Cadastro />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/catalogo" element={<Catalogo />} />
-      
+      <Route path="/Sobre" element={<Sobre />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     </BrowserRouter>
