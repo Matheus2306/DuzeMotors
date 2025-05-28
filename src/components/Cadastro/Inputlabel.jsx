@@ -9,7 +9,7 @@ const Inputlabel = (props) => {
     <input
       type="text"
       id={props.label}
-      className="form-control mb-3"
+      className="form-control mb-3 border-bottom"
       placeholder={props.placeholder}
       onChange={(e) => props.onchange(e.target.value)}
     />
