@@ -14,7 +14,7 @@ const motos = [
     brand: 'Honda',
     description: 'Uma das motos mais vendidas do Brasil, econômica, ágil e com visual moderno.',
     features: ['Freios CBS', 'Painel Digital', 'Tanque 16,1L'],
-    image: 'https://placehold.co/300x300',
+    image: '../src/IMG/cgtitan.webp',
     longDescription: 'A Honda CG 160 Titan é sinônimo de confiança e economia para o uso urbano. Com motor de 162,7 cc, entrega um desempenho eficiente aliado a um visual moderno. Equipada com freios CBS, painel digital e um tanque de 16,1 litros, é perfeita para quem busca praticidade e baixo custo de manutenção.',
     specs: {
       'Marca': 'Honda',
@@ -37,7 +37,7 @@ const motos = [
     brand: 'Honda',
     description: 'Esportiva urbana com ótimo desempenho e eficiência, ideal para o dia a dia.',
     features: ['ABS', 'Injeção Eletrônica', 'Painel Digital'],
-    image: 'path/to/cb300ftwister.jpg',
+    image: '../src/IMG/twister.webp',
     longDescription: 'A nova CB 300F Twister chegou com visual agressivo, motor mais potente e tecnologia de ponta. Ideal para uso diário ou pequenas viagens, oferece excelente dirigibilidade, sistema ABS de série e painel digital completo. Uma naked urbana com espírito esportivo.',
     specs: {
       'Marca': 'Honda',
@@ -60,7 +60,7 @@ const motos = [
     brand: 'Honda',
     description: 'Uma naked potente e estilosa com motor 4 cilindros e visual Neo Sports Café.',
     features: ['ABS', 'Controle de Torque', 'Quickshifter'],
-    image: 'path/to/cb1000r.jpg',
+    image: '../src/IMG/CB-1000R.png',
     longDescription: 'Uma verdadeira streetfighter com DNA esportivo e estilo Neo Sports Café. A CB 1000R combina motor 4 cilindros de alto desempenho com um design premium e elegante. Equipada com controle de torque, quickshifter e tecnologia de ponta, entrega emoção e sofisticação a cada acelerada.',
     specs: {
       'Marca': 'Honda',
@@ -83,7 +83,7 @@ const motos = [
     brand: 'BMW',
     description: 'Superesportiva de alta performance com 210 cv e tecnologias de corrida.',
     features: ['ABS Pro', 'Controle de tração DTC', 'Modos de pilotagem'],
-    image: 'path/to/s1000rr.jpg',
+    image: '../src/IMG/s-1000-rr - Editado.png',
     longDescription: 'A superbike definitiva. A BMW S 1000 RR é construída para dominar as pistas e impressionar nas ruas. Com motor de 210 cv, controle de tração dinâmico (DTC), modos de pilotagem e ABS Pro, ela oferece desempenho de corrida com segurança e tecnologia embarcada de fábrica.',
     specs: {
       'Marca': 'BMW',
@@ -106,7 +106,7 @@ const motos = [
     brand: 'BMW',
     description: 'Trail urbana ideal para aventuras leves, com conforto e estilo GS.',
     features: ['ABS', 'Injeção Eletrônica', 'Painel LCD'],
-    image: 'path/to/g310gs.jpg',
+    image: '../src/IMG/editado.png',
     longDescription: 'Ágil, versátil e aventureira, a BMW G 310 GS é ideal para quem busca conforto no asfalto e confiança fora dele. Com visual robusto e ergonomia pensada para longos trajetos, entrega a qualidade GS em uma versão compacta e acessível. Perfeita para iniciantes e exploradores urbanos.',
     specs: {
       'Marca': 'BMW',
@@ -129,7 +129,7 @@ const motos = [
     brand: 'BMW',
     description: 'A mais avançada GS da história: potente, leve, conectada e pronta pra qualquer estrada.',
     features: ['ABS Pro', 'Suspensão eletrônica', 'Assistente de partida'],
-    image: 'path/to/r1300gs.jpg',
+    image: '../src/IMG/r1300.png',
     longDescription: 'A evolução da lendária GS. A nova R 1300 GS redefine a categoria big trail com mais potência, menor peso e tecnologias exclusivas. Suspensão eletrônica, modos de condução avançados, assistente de partida e design renovado para dominar qualquer terreno com total controle.',
     specs: {
       'Marca': 'BMW',
@@ -198,7 +198,7 @@ const motos = [
     brand: 'Yamaha',
     description: 'Scooter automática com estilo moderno, econômico e tecnologia de conectividade.',
     features: ['Start-stop', 'Painel Digital', 'Conectividade'],
-    image: 'path/to/neosconnected.jpg',
+    image: '../src/IMG/download (2).png',
     longDescription: 'Moderno, ágil e econômico. O NEO’S é um scooter automático perfeito para quem quer mobilidade com estilo. Com start-stop, conectividade via app e excelente consumo de combustível, é ideal para o trânsito urbano e deslocamentos rápidos.',
     specs: {
       'Marca': 'Yamaha',
@@ -221,7 +221,7 @@ const motos = [
     brand: 'Yamaha',
     description: 'A naked premium da Yamaha com visual esportivo e painel 100% digital.',
     features: ['ABS', 'Iluminação full LED', 'Conectividade'],
-    image: 'path/to/mt03connected.jpg',
+    image: '../src/IMG/motinha.avif',
     longDescription: 'A MT-03 Connected é puro DNA Master of Torque. Visual agressivo, iluminação full LED, painel digital com conectividade e ciclística precisa fazem dela uma naked premium para quem busca adrenalina e estilo em duas rodas. Destaque nas ruas com tecnologia embarcada.',
     specs: {
       'Marca': 'Yamaha',
@@ -244,7 +244,7 @@ const motos = [
     brand: 'Yamaha',
     description: 'Moto urbana de baixo consumo, confortável e com sistema de freios UBS.',
     features: ['Freios UBS', 'Painel Digital', 'Econômica'],
-    image: 'path/to/factor150.jpg',
+    image: '../src/IMG/factor.avif',
     longDescription: 'Economia e resistência são os pontos fortes da Factor 150. Equipada com freios UBS, painel digital e motor flex, oferece ótimo desempenho com baixo consumo. Ideal para o uso diário, entregas e mobilidade urbana com confiança.',
     specs: {
       'Marca': 'Yamaha',
@@ -267,7 +267,7 @@ const motos = [
     brand: 'Yamaha',
     description: 'Scooter com tecnologia híbrida, freios ABS e conectividade via app Yamaha.',
     features: ['ABS', 'Sistema híbrido', 'Bluetooth'],
-    image: 'path/to/fluoabs.jpg',
+    image: '../src/IMG/fluo.png',
     longDescription: 'O Yamaha Fluo é o primeiro scooter híbrido da categoria, unindo economia e desempenho. Com sistema stop-start, freios ABS e conectividade Bluetooth, ele entrega inovação e conforto para o uso urbano. Um scooter que combina tecnologia e praticidade como nenhum outro.',
     specs: {
       'Marca': 'Yamaha',
