@@ -21,7 +21,7 @@ const Gerenciamento = () => {
                 gerenciamento de Administrador
               </span>
             </div>
-            <div className="w-100 h-100 mt-4">
+            <div className="w-100 h-100 mt-4 p-4">
               <TerminalFornecedor />
             </div>
           </div>

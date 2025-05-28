@@ -15,6 +15,7 @@ import Perfil from './components/Login/Perfil.jsx'
 import DetalhesMoto from './Pages/DetalhesMoto.jsx';
 import Cartao from './Pages/Cartao.jsx'
 import PagamentoConcluido from './Pages/PagamentoConcluido.jsx';
+import Gerenciamento from './Pages/Gerenciamento.jsx';
 import UserManagement from './Pages/UserManagement.jsx';
 
 createRoot(document.getElementById("root")).render(
@@ -34,6 +35,7 @@ createRoot(document.getElementById("root")).render(
      
 
       
+      <Route path="/gerenciamento" element={<Gerenciamento />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/perfil" element={<Perfil />} />
     </Routes>
