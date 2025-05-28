@@ -41,7 +41,7 @@ export default function UserManagement() {
   };
 
   const deleteUser = (nome) => {
-    if (window.confirm("Tem certeza que quer deletar esse pobre? Lá ele...")) {
+    if (window.confirm("Tem certeza que quer deletar esse usuário?")) {
       const updated = users.filter((u) => u.nome !== nome);
       updateLocalStorage(updated);
     }
