@@ -19,7 +19,15 @@ const information = () => {
           className="bg-light d-flex align-items-center justify-content-center"
           style={{ height: '200px' }}
         >
-          <span className="text-muted">Imagem</span>
+          {moto.image ? (
+            <img
+              src={moto.image}
+              alt={moto.title}
+              style={{ maxHeight: '100%', maxWidth: '100%' }}
+            />
+          ) : (
+            <span className="text-muted">Imagem</span>
+          )}
         </div>
         <div className="card-body d-flex flex-column">
           <div className="d-flex justify-content-between align-items-start mb-1">
