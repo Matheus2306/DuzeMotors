@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import HeaderTerminal from "../HeaderTerminal";
 import Itenterminal from "./Itenterminal";
 import ModalFornecedor from "./ModalFornecedor";
 
-const TerminalFornecedor = () => {
+const TerminalFornecedor = (props) => {
   const [email, setemail] = useState("");
   const [cnpj, setCnpj] = useState("");
   const [numero, setNumero] = useState("");
   const [nome, setNome] = useState("");
-  const [fornecedores, setFornecedores] = useState(()=> {
+  const [fornecedores] = useState(()=> {
     // Tenta carregar os fornecedores do localStorage, ou retorna um array vazio se não houver dados
     return JSON.parse(localStorage.getItem("fornecedores")) || [];
   });
@@ -57,24 +57,27 @@ const TerminalFornecedor = () => {
 
  // Função para remover um fornecedor
  const handleRemoveFornecedor = (fornecedor) => {
-  setFornecedores((fornecedoresAntigos) => {
-    const novosFornecedores = fornecedoresAntigos.filter(
-      (item) => item.id !== fornecedor.id
+    // Obtém a lista atual de fornecedores do localStorage
+    const fornecedoresStorage = JSON.parse(localStorage.getItem("fornecedores")) || [];
+    
+    // Filtra o fornecedor a ser removido
+    const fornecedoresAtualizados = fornecedoresStorage.filter(
+      (f) => f.id !== fornecedor.id
     );
-    // Atualiza o localStorage diretamente
-    sincronizarFornecedores(novosFornecedores);
-    return novosFornecedores;
-  });
+    
+    // Atualiza o localStorage com a lista filtrada
+    sincronizarFornecedores(fornecedoresAtualizados);
+    window.location.reload(); // Recarrega a página para atualizar a lista de fornecedores
 };
 
 
   return (
     <div className="w-50 h-75 shadow rounded">
-      <HeaderTerminal />
+      <HeaderTerminal title={props.title}/>
       <div className="h-75 overflow-y-scroll border-bottom border-2">
         {fornecedores.map((fornecedor) => (
           <Itenterminal
-            key={fornecedor.id}
+            Id={fornecedor.id}
             nome={fornecedor.nome}
             cnpj={fornecedor.cnpj}
             numero={fornecedor.numero}
@@ -90,14 +93,7 @@ const TerminalFornecedor = () => {
         setNumero={setNumero}
         handleCreateFornecedor={handleCreateFornecedor}
       />
-      <div
-        className="d-flex justify-content-end align-items-center w-100"
-        style={{ height: "15%" }}
-      >
-        <span className="p-2 m-3 btnhover text-light rounded" role="button">
-          Solicitar Produtos
-        </span>
-      </div>
+      
     </div>
   );
 };

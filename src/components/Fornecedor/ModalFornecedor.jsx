@@ -4,16 +4,16 @@ import Inputlabel from "../Cadastro/Inputlabel";
 const ModalFornecedor = (props) => {
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="exampleModal"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header justify-content-between">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header justify-content-between">
+            <h1 className="modal-title fs-5" id="exampleModalLabel">
               Criar
             </h1>
             <i
@@ -22,7 +22,7 @@ const ModalFornecedor = (props) => {
               role="button"
             ></i>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <form>
               <Inputlabel
                 label="Nome"
@@ -53,7 +53,7 @@ const ModalFornecedor = (props) => {
               </div>
             </form>
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <span
               className="py-2 px-3 btnhover text-light rounded"
               role="button"

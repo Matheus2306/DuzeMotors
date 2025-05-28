@@ -22,7 +22,7 @@ const Gerenciamento = () => {
               </span>
             </div>
             <div className="w-100 h-100 mt-4 p-4">
-              <TerminalFornecedor />
+              <TerminalFornecedor title="Fornecedor"/>
             </div>
           </div>
           <Footer />
