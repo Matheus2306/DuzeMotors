@@ -5,8 +5,8 @@ const FinalizarCarrinho = () => {
 const navigate = useNavigate();
 
 const handleFinalizarCompra = () => {
-  alert("Compra finalizada com sucesso!");
-navigate("/")
+  
+navigate("/Cartao")
 }
 
   return (
@@ -30,6 +30,7 @@ navigate("/")
       </div> 
       <div className="d-flex justify-content-center align-items-center btnhover p-2 rounded-1 mt-2" onClick={handleFinalizarCompra} role="button">
         <span className="text-light"><i class="bi bi-credit-card"></i> Finalizar Compra</span>
+        
       </div>
     </div>
   );
