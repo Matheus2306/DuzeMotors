@@ -15,6 +15,7 @@ import Perfil from './components/Login/Perfil.jsx'
 import DetalhesMoto from './Pages/DetalhesMoto.jsx';
 import Cartao from './Pages/Cartao.jsx'
 import PagamentoConcluido from './Pages/PagamentoConcluido.jsx';
+import UserManagement from './Pages/UserManagement.jsx';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -25,10 +26,11 @@ createRoot(document.getElementById("root")).render(
       <Route path="/Cadastro" element={<Cadastro />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/catalogo" element={<Catalogo />} />
-      <Route path="/Sobre" element={<Sobre />} />
+      <Route path="/Sobrenos" element={<Sobre />} />
       <Route path="/moto/:id" element={<DetalhesMoto />} />
       <Route path="/Cartao" element={<Cartao />} />
       <Route path="/PagamentoConcluido" element={<PagamentoConcluido />} />
+      <Route path="/UserManagement" element={<UserManagement />} />
      
 
       
