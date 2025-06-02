@@ -28,7 +28,7 @@ const Header = () => {
   const loginexit = localStorage.getItem("usuarioLogado");
   const loginexitParse = JSON.parse(loginexit);
   // Verifica se o usuário é admin
-  const isAdmin = loginexitParse && loginexitParse.Role;
+  const isAdmin = loginexitParse == loginexitParse.Role;
 
 
   return (
