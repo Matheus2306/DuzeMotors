@@ -3,7 +3,7 @@ import React from "react";
 const Itenterminal = (props) => {
   return (
     <div className="w-100 p-2 justify-content-between d-flex shadow-sm mt-2">
-      <div className="d-flex justify-content-between w-25 align-items-center">
+      <div className="d-flex justify-content-between w-50 align-items-center">
         <div className="d-flex flex-column gap-2 mx-3 ">
           <span>{props.nome}</span>
           <span>{props.cnpj}</span>

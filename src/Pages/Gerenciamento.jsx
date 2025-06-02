@@ -1,22 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import NotFound from "./NotFound";
 import Header from "../components/Header";
 import TerminalFornecedor from "../components/GerenciamentoDeADM/TerminalFornecedor";
+import ModalFornecedor from "../components/GerenciamentoDeADM/ModalFornecedor";
 
 const Gerenciamento = () => {
   //coletar o usuario logado
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   //verifica se o usuario é adm
   const isAdm = usuarioLogado && usuarioLogado.Role === "ADM";
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey && e.key === "k") || e.key === "/") {
+        e.preventDefault();
+        document.getElementById("searchInput").focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Verifica se a tecla pressionada é "Enter"
+      if (e.key === "Enter") {
+        // Verifica se o campo de pesquisa está focado
+        const searchInput = document.getElementById("searchInput");
+        if (document.activeElement === searchInput) {
+          e.preventDefault(); // Impede o comportamento padrão do Enter
+          // Chama a função de pesquisa com o valor atual do campo de pesquisa
+          setSearchTerm(searchInput.value); // Atualiza o termo de busca com o valor do input
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  //fornecedores
   const [email, setemail] = useState("");
   const [cnpj, setCnpj] = useState("");
   const [numero, setNumero] = useState("");
   const [nome, setNome] = useState("");
-  const [fornecedores] = useState(() => {
-    // Tenta carregar os fornecedores do localStorage, ou retorna um array vazio se não houver dados
-    return JSON.parse(localStorage.getItem("fornecedores")) || [];
+  const [fornecedores, setFornecedores] = useState(() => {
+    const data = localStorage.getItem("fornecedores");
+    try {
+      return data && data !== "undefined" ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
   });
+  const [fornecedoresExibidos, setFornecedoresExibidos] =
+    useState(fornecedores);
+  const [searchTerm, setSearchTerm] = useState(""); // Adicione este estado
+  const [cnpjError, setCnpjError] = useState(false);
+  const [camposError, setCamposError] = useState(false);
+
+  useEffect(() => {
+    // Sempre que fornecedores OU searchTerm mudar, atualize a lista exibida
+    if (searchTerm.trim() === "") {
+      setFornecedoresExibidos(fornecedores);
+    } else {
+      const fornecedoresFiltrados = fornecedores.filter((fornecedor) =>
+        fornecedor.nome.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFornecedoresExibidos(fornecedoresFiltrados);
+    }
+  }, [fornecedores, searchTerm]);
 
   const sincronizarFornecedores = (fornecedoresAtualizados) => {
     localStorage.setItem(
@@ -34,31 +87,55 @@ const Gerenciamento = () => {
   const handleCreateFornecedor = () => {
     //verifica se todos os campos foram preenchidos
     if (!nome || !cnpj || !numero || !email) {
-      alert("Por favor, preencha todos os campos.");
-      return;
-    } else {
-      //cria um localStorage para armazenar os fornecedores
-      const fornecedoresStorage =
-        JSON.parse(localStorage.getItem("fornecedores")) || [];
-      // cria um novo fornecedor
-      const novoFornecedor = {
-        id: gerarId(),
-        nome: nome,
-        cnpj: cnpj,
-        numero: numero,
-        email: email,
-      };
-      //adiciona o novo fornecedor ao localStorage
-      fornecedoresStorage.push(novoFornecedor);
-      localStorage.setItem("fornecedores", JSON.stringify(fornecedoresStorage));
-      //atualiza o estado dos fornecedores
-
-      //limpa os campos do modal
+      setCamposError(true);
+      setTimeout(() => {
+        setCamposError(false);
+      }, 3500);
+      //campos resetados
       setNome("");
       setCnpj("");
       setNumero("");
       setemail("");
-      window.location.reload(); //recarrega a página para atualizar a lista de fornecedores
+      return;
+    } else {
+      //verifica se o fornecedor já existe pelo cnpj
+      const fornecedoresStorage =
+        JSON.parse(localStorage.getItem("fornecedores")) || [];
+      const fornecedorExistente = fornecedoresStorage.find(
+        (fornecedor) => fornecedor.cnpj === cnpj
+      );
+      if (fornecedorExistente) {
+        setCnpjError(true);
+        setTimeout(() => {
+          setCnpjError(false);
+        }, 3500);
+        //limpa os campos do modal
+        setNome("");
+        setCnpj("");
+        setNumero("");
+        setemail("");
+      } else {
+        // cria um novo fornecedor
+        const novoFornecedor = {
+          id: gerarId(),
+          nome: nome,
+          cnpj: cnpj,
+          numero: numero,
+          email: email,
+        };
+        //adiciona o novo fornecedor ao localStorage
+        fornecedoresStorage.push(novoFornecedor);
+        localStorage.setItem(
+          "fornecedores",
+          JSON.stringify(fornecedoresStorage)
+        );
+        setFornecedores(fornecedoresStorage);
+        //limpa os campos do modal
+        setNome("");
+        setCnpj("");
+        setNumero("");
+        setemail("");
+      }
     }
   };
 
@@ -75,7 +152,11 @@ const Gerenciamento = () => {
 
     // Atualiza o localStorage com a lista filtrada
     sincronizarFornecedores(fornecedoresAtualizados);
-    window.location.reload(); // Recarrega a página para atualizar a lista de fornecedores
+    setFornecedores(fornecedoresAtualizados);
+  };
+  //função para procurar fornecedor
+  const handleSearch = (term) => {
+    setSearchTerm(term); // Atualize o termo de busca
   };
 
   return (
@@ -92,13 +173,31 @@ const Gerenciamento = () => {
             <div className="w-100 h-100 mt-4 p-4">
               <TerminalFornecedor
                 title="Fornecedor"
-                ItemManipulado={fornecedores}
+                ItemManipulado={fornecedoresExibidos}
                 setemail={setemail}
                 setCnpj={setCnpj}
                 setNumero={setNumero}
                 setNome={setNome}
                 handleCreateFornecedor={handleCreateFornecedor}
                 handleRemoveFornecedor={handleRemoveFornecedor}
+                handleSearch={handleSearch}
+                email={email}
+                cnpj={cnpj}
+                numero={numero}
+                nome={nome}
+              />
+              <ModalFornecedor
+                setNome={setNome}
+                setemail={setemail}
+                setCnpj={setCnpj}
+                setNumero={setNumero}
+                handleCreateFornecedor={handleCreateFornecedor}
+                nome={nome}
+                cnpj={cnpj}
+                numero={numero}
+                email={email}
+                cnpjError={cnpjError}
+                camposError={camposError}
               />
             </div>
           </div>

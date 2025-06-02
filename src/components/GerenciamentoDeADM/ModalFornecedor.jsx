@@ -2,6 +2,11 @@ import React from "react";
 import Inputlabel from "../Cadastro/Inputlabel";
 
 const ModalFornecedor = (props) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.handleCreateFornecedor();
+  };
+
   return (
     <div
       className="modal fade"
@@ -23,20 +28,23 @@ const ModalFornecedor = (props) => {
             ></i>
           </div>
           <div className="modal-body">
-            <form>
+            <form onSubmit={handleSubmit}>
               <Inputlabel
                 label="Nome"
                 placeholder="Nome"
+                value={props.nome}
                 onchange={props.setNome}
               />
               <Inputlabel
                 label="CNPJ"
                 placeholder="CNPJ"
+                value={props.cnpj}
                 onchange={props.setCnpj}
               />
               <Inputlabel
                 label="Número"
                 placeholder="Número"
+                value={props.numero}
                 onchange={props.setNumero}
               />
               <div className="w-75">
@@ -48,17 +56,29 @@ const ModalFornecedor = (props) => {
                   id="Email"
                   className="form-control mb-3 border-bottom"
                   placeholder="Email"
+                  value={props.email}
                   onChange={(e) => props.setemail(e.target.value)}
                 />
               </div>
+              {/* Botão submit oculto para garantir que o Enter funcione */}
+              <button type="submit" style={{ display: "none" }}></button>
             </form>
           </div>
+          {props.cnpjError && (
+            <span className="p-3 m-3 bg-danger-subtle text-danger rounded border border-2 border-danger">
+              Este fornecedor já existe
+            </span>
+          )}
+          {props.camposError && (
+            <span className="p-3 m-3 bg-danger-subtle text-danger rounded border border-2 border-danger">
+              Preencha todos os campos
+            </span>
+          )}
           <div className="modal-footer">
             <span
               className="py-2 px-3 btnhover text-light rounded"
               role="button"
               onClick={props.handleCreateFornecedor}
-              data-bs-dismiss="modal"
             >
               Criar
             </span>

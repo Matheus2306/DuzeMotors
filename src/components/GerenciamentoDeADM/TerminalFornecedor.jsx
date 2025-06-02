@@ -1,14 +1,13 @@
 import React from "react";
 import HeaderTerminal from "../HeaderTerminal";
 import Itenterminal from "./Itenterminal";
-import ModalFornecedor from "./ModalFornecedor";
 
 const TerminalFornecedor = (props) => {
-const itemManipulado = props.ItemManipulado
+  const itemManipulado = props.ItemManipulado;
 
   return (
     <div className="w-50 h-75 shadow rounded">
-      <HeaderTerminal title={props.title}/>
+      <HeaderTerminal title={props.title} handleSearch={props.handleSearch} />
       <div className="h-75 overflow-y-scroll border-bottom border-2">
         {itemManipulado.map((fornecedor) => (
           <Itenterminal
@@ -21,14 +20,7 @@ const itemManipulado = props.ItemManipulado
           />
         ))}
       </div>
-      <ModalFornecedor
-        setNome={props.setNome}
-        setemail={props.setemail}
-        setCnpj={props.setCnpj}
-        setNumero={props.setNumero}
-        handleCreateFornecedor={props.handleCreateFornecedor}
-      />
-      
+     
     </div>
   );
 };
