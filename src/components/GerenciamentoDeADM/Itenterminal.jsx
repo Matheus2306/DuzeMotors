@@ -17,6 +17,19 @@ const Itenterminal = (props) => {
       <div className="d-flex align-items-center gap-3">
         <span className="hovertext" role="button">Solicitar</span>
         <i
+          className="bi bi-pencil-square fs-5 text-secondary"
+          data-bs-toggle="modal"
+          data-bs-target={props.target2}
+          role="button"
+          onClick={() => {
+            props.setIdFornecedorEditando(props.Id);
+            props.setNome(props.nome);
+            props.setCnpj(props.cnpj);
+            props.setNumero(props.numero);
+            props.setEmail(props.email);
+          }}
+        ></i>
+        <i
           className="bi bi-trash fs-5 text-danger"
           onClick={() =>
             props.handleDeleteFornecedor({

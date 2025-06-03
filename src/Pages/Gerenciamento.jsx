@@ -5,12 +5,19 @@ import Header from "../components/Header";
 import TerminalFornecedor from "../components/GerenciamentoDeADM/TerminalFornecedor";
 import ModalFornecedor from "../components/GerenciamentoDeADM/ModalFornecedor";
 import ModalProduto from "../components/GerenciamentoDeADM/ModalProduto";
+import ModalEditarFornecedor from "../components/GerenciamentoDeADM/ModalEditarFornecedor";
+import ModalEditarProduto from "../components/GerenciamentoDeADM/ModalEditarProduto";
+import { useNavigate } from "react-router";
 
 const Gerenciamento = () => {
   //coletar o usuario logado
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   //verifica se o usuario é adm
   const isAdm = usuarioLogado && usuarioLogado.Role === "ADM";
+  const navigate = useNavigate();
+  const handleClick = () => {
+  navigate("/gerenciamento/UserManagement");
+  }
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -59,6 +66,7 @@ const Gerenciamento = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Adicione este estado
   const [cnpjError, setCnpjError] = useState(false);
   const [camposError, setCamposError] = useState(false);
+  const [idFornecedorEditando, setIdFornecedorEditando] = useState(null);
 
   useEffect(() => {
     // Sempre que fornecedores OU searchTerm mudar, atualize a lista exibida
@@ -100,10 +108,7 @@ const Gerenciamento = () => {
         setCamposError(false);
       }, 3500);
       //campos resetados
-      setNome("");
-      setCnpj("");
-      setNumero("");
-      setemail("");
+      camposResetados();
       return;
     } else {
       //verifica se o fornecedor já existe pelo cnpj
@@ -161,6 +166,20 @@ const Gerenciamento = () => {
     setSearchTerm(term); // Atualize o termo de busca
   };
 
+  //função para editar fornecedor pelo Id
+
+  const handleEditFornecedor = (id, dadosEditados) => {
+    const fornecedoresAtualizados = fornecedores.map((f) =>
+      f.id === id ? { ...f, ...dadosEditados } : f
+    );
+    setFornecedores(fornecedoresAtualizados);
+    setFornecedoresExibidos(fornecedoresAtualizados);
+    localStorage.setItem(
+      "fornecedores",
+      JSON.stringify(fornecedoresAtualizados)
+    );
+  };
+
   //Produtos
   const [NomeProduto, setNomeProduto] = useState("");
   const [PrecoProduto, setPrecoProduto] = useState("");
@@ -172,13 +191,25 @@ const Gerenciamento = () => {
   const [imagem, setImagem] = useState("");
   const [Produtoserr, setProduterr] = useState("");
   const [veiculo, setVeiculo] = useState(() => {
-    const data = localStorage.getItem("veiculo");
-    try {
-      return data && data !== "undefined" ? JSON.parse(data) : [];
-    } catch {
-      return [];
-    }
+    return JSON.parse(localStorage.getItem("veiculo")) || [];
   });
+  const [veiculosExibidos, setVeiculosExibidos] = useState(veiculo);
+  const [idProdutoEditando, setIdProdutoEditando] = useState(null);
+
+  useEffect(() => {
+    setVeiculosExibidos(veiculo);
+  }, [veiculo]);
+
+  const handleSearchVeiculo = (searchTerm) => {
+    if (!searchTerm) {
+      setVeiculosExibidos(veiculo);
+      return;
+    }
+    const resultado = veiculo.filter((v) =>
+      v.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setVeiculosExibidos(resultado);
+  };
 
   const camposProdutoResetados = () => {
     setNomeProduto("");
@@ -263,9 +294,14 @@ const Gerenciamento = () => {
     sincronizarVeiculos(veiculosAtualizados);
     setVeiculo(veiculosAtualizados);
   };
-  // Função para procurar veículo
-  const handleSearchVeiculo = (term) => {
-    setSearchTerm(term); // Atualize o termo de busca
+
+  const handleEditProduto = (id, dadosEditados) => {
+    const veiculosAtualizados = veiculo.map((v) =>
+      v.id === id ? { ...v, ...dadosEditados } : v
+    );
+    setVeiculo(veiculosAtualizados);
+    setVeiculosExibidos(veiculosAtualizados);
+    localStorage.setItem("veiculo", JSON.stringify(veiculosAtualizados));
   };
 
   return (
@@ -276,7 +312,16 @@ const Gerenciamento = () => {
           <div className="w-100 h-100 ">
             <div className="text-center mt-4">
               <span className="fs-4 fw-semibold">
-                gerenciamento de Administrador
+                Gerenciamento de Administrador
+              </span>
+            </div>
+            <div className="text-end">
+              <span
+                className="mx-5 text-decoration-underline text-primary fs-5"
+                role="button"
+                onClick={handleClick}
+              >
+                Usuários<i className="bi bi-arrow-right"></i>
               </span>
             </div>
             <div className="w-100 h-100 mt-4 p-4 d-flex gap-4">
@@ -285,14 +330,34 @@ const Gerenciamento = () => {
                 ItemManipuladoFor={fornecedoresExibidos}
                 handleRemoveFornecedor={handleRemoveFornecedor}
                 handleSearch={handleSearch}
+                handleEditFornecedor={handleEditFornecedor}
                 target="#exampleModal"
+                setNome={setNome}
+                setCnpj={setCnpj}
+                setNumero={setNumero}
+                setEmail={setemail}
+                setIdFornecedorEditando={setIdFornecedorEditando}
+                nome={nome}
+                cnpj={cnpj}
+                numero={numero}
+                email={email}
+                target2="#ModalEditarFornecedor"
               />
               <TerminalFornecedor
                 title="Produtos"
-                ItemManipuladoVei={veiculo}
+                ItemManipuladoVei={veiculosExibidos}
                 handleRemoveFornecedor={handleRemoveVeiculo}
                 handleSearch={handleSearchVeiculo}
                 target="#ModalProduto"
+                setIdProdutoEditando={setIdProdutoEditando}
+                setNomeProduto={setNomeProduto}
+                setPrecoProduto={setPrecoProduto}
+                setQuantidadeProduto={setQuantidadeProduto}
+                setMarcaProduto={setMarcaProduto}
+                setModelo={setModelo}
+                setQuilometragem={setQuilometragem}
+                setTipoCombustivel={setTipoCombustivel}
+                setImagem={setImagem}
               />
             </div>
 
@@ -329,6 +394,38 @@ const Gerenciamento = () => {
               imagem={imagem}
               Produtoserr={Produtoserr}
               camposError={camposError}
+            />
+            <ModalEditarFornecedor
+              id={idFornecedorEditando}
+              nome={nome}
+              setNome={setNome}
+              cnpj={cnpj}
+              setCnpj={setCnpj}
+              numero={numero}
+              setNumero={setNumero}
+              email={email}
+              setEmail={setemail}
+              handleEditFornecedor={handleEditFornecedor}
+            />
+            <ModalEditarProduto
+              id={idProdutoEditando}
+              nome={NomeProduto}
+              setNome={setNomeProduto}
+              preco={PrecoProduto}
+              setPreco={setPrecoProduto}
+              quantidade={QuantidadeProduto}
+              setQuantidade={setQuantidadeProduto}
+              marca={MarcaProduto}
+              setMarca={setMarcaProduto}
+              modelo={Modelo}
+              setModelo={setModelo}
+              quilometragem={Quilometragem}
+              setQuilometragem={setQuilometragem}
+              tipoCombustivel={tipoCombustivel}
+              setTipoCombustivel={setTipoCombustivel}
+              imagem={imagem}
+              setImagem={setImagem}
+              handleEditProduto={handleEditProduto}
             />
           </div>
           <Footer />

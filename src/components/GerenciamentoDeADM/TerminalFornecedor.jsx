@@ -6,6 +6,7 @@ import ItemVeiculo from "./ItemVeiculo";
 const TerminalFornecedor = (props) => {
   const itemManipuladoFor = props.ItemManipuladoFor;
   const itemManipulafoVei = props.ItemManipuladoVei;
+  const veiculosExibidos = itemManipulafoVei; // Assuming veiculosExibidos is equivalent to itemManipulafoVei
 
   return (
     <div className="w-50 h-75 shadow rounded">
@@ -25,10 +26,16 @@ const TerminalFornecedor = (props) => {
               numero={fornecedor.numero}
               email={fornecedor.email}
               handleDeleteFornecedor={props.handleRemoveFornecedor}
+              target2="#ModalEditarFornecedor"
+              setIdFornecedorEditando={props.setIdFornecedorEditando}
+              setNome={props.setNome}
+              setCnpj={props.setCnpj}
+              setNumero={props.setNumero}
+              setEmail={props.setemail}
             />
           ))
         ) : (
-          itemManipulafoVei.map((veiculo) => (
+          veiculosExibidos.map((veiculo) => (
             <ItemVeiculo
               key={veiculo.id}
               Id={veiculo.id}
@@ -40,7 +47,16 @@ const TerminalFornecedor = (props) => {
               quilometragem={veiculo.quilometragem}
               tipoCombustivel={veiculo.tipoCombustivel}
               imagem={veiculo.imagem}
-              handleDeleteVeiculo={props.handleRemoveVeiculo}
+              handleDeleteVeiculo={props.handleRemoveFornecedor}
+              setIdProdutoEditando={props.setIdProdutoEditando}
+              setNome={props.setNomeProduto}
+              setPreco={props.setPrecoProduto}
+              setQuantidade={props.setQuantidadeProduto}
+              setMarca={props.setMarcaProduto}
+              setModelo={props.setModelo}
+              setQuilometragem={props.setQuilometragem}
+              setTipoCombustivel={props.setTipoCombustivel}
+              setImagem={props.setImagem}
             />
           ))
         )}

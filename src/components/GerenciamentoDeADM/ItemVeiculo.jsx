@@ -28,6 +28,23 @@ const ItemVeiculo = (props) => {
       <div className="d-flex align-items-center gap-3">
         <span className="hovertext" role="button">Solicitar</span>
         <i
+          className="bi bi-pencil-square fs-5 text-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#ModalEditarProduto"
+          role="button"
+          onClick={() => {
+            props.setIdProdutoEditando(props.Id);
+            props.setNome(props.nome);
+            props.setPreco(props.preco);
+            props.setQuantidade(props.quantidade);
+            props.setMarca(props.marca);
+            props.setModelo(props.modelo);
+            props.setQuilometragem(props.quilometragem);
+            props.setTipoCombustivel(props.tipoCombustivel);
+            props.setImagem(props.imagem);
+          }}
+        ></i>
+        <i
           className="bi bi-trash fs-5 text-danger"
           onClick={() =>
             props.handleDeleteVeiculo({
