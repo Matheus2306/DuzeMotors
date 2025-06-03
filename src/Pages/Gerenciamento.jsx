@@ -282,14 +282,14 @@ const Gerenciamento = () => {
             <div className="w-100 h-100 mt-4 p-4 d-flex gap-4">
               <TerminalFornecedor
                 title="Fornecedor"
-                ItemManipulado={fornecedoresExibidos}
+                ItemManipuladoFor={fornecedoresExibidos}
                 handleRemoveFornecedor={handleRemoveFornecedor}
                 handleSearch={handleSearch}
                 target="#exampleModal"
               />
               <TerminalFornecedor
                 title="Produtos"
-                ItemManipulado={veiculo}
+                ItemManipuladoVei={veiculo}
                 handleRemoveFornecedor={handleRemoveVeiculo}
                 handleSearch={handleSearchVeiculo}
                 target="#ModalProduto"

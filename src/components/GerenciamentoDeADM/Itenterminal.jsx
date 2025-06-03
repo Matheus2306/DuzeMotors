@@ -3,18 +3,17 @@ import React from "react";
 const Itenterminal = (props) => {
   return (
     <div className="w-100 p-2 justify-content-between d-flex shadow-sm mt-2">
-      <div className="d-flex justify-content-between w-50 align-items-center">
-        <div className="d-flex flex-column gap-2 mx-3 ">
-          <span>{props.nome}</span>
-          <span>{props.cnpj}</span>
+      <div className="d-flex gap-5 w-50 align-items-center">
+        <div className="d-flex flex-column w-25 gap-2 mx-3">
+          <span><strong>Nome:</strong> {props.nome}</span>
+          <span><strong>CNPJ:</strong> {props.cnpj}</span>
         </div>
-        <div className="d-flex flex-column gap-2 mx-3 ">
-          <span>{props.numero}</span>
-          <span>{props.email}</span>
+        <div className="d-flex flex-column gap-2 mx-3">
+          <span><strong>Número:</strong> {props.numero}</span>
+          <span><strong>Email:</strong> {props.email}</span>
         </div>
       </div>
 
-      {/* Passa o fornecedor atual como argumento para a função */}
       <div className="d-flex align-items-center gap-3">
         <span className="hovertext" role="button">Solicitar</span>
         <i
@@ -22,6 +21,10 @@ const Itenterminal = (props) => {
           onClick={() =>
             props.handleDeleteFornecedor({
               id: props.Id,
+              nome: props.nome,
+              cnpj: props.cnpj,
+              numero: props.numero,
+              email: props.email,
             })
           }
           role="button"
