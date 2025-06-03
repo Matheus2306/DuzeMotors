@@ -4,8 +4,6 @@ const HeaderTerminal = (props) => {
   const[searchTerm, setSearchTerm] = useState("");
 
 
-
-
   return (
     <div className="p-3 d-flex align-items-center border-bottom border-2 justify-content-between">
       <div className="d-flex align-items-center w-50">
@@ -35,7 +33,7 @@ const HeaderTerminal = (props) => {
       <span
         className="px-2 py-1 rounded mx-2 btnhover"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target={props.target}
         data-bs-whatever="@mdo"
         role="button"
       >

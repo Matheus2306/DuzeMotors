@@ -7,7 +7,7 @@ const TerminalFornecedor = (props) => {
 
   return (
     <div className="w-50 h-75 shadow rounded">
-      <HeaderTerminal title={props.title} handleSearch={props.handleSearch} />
+      <HeaderTerminal title={props.title} handleSearch={props.handleSearch} target={props.target}/>
       <div className="h-75 overflow-y-scroll border-bottom border-2">
         {itemManipulado.map((fornecedor) => (
           <Itenterminal
