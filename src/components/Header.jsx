@@ -25,6 +25,12 @@ const Header = () => {
     navigate("/SobreNos");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogado");
+    navigate("/login");
+  };
+  
+  
   const loginexit = localStorage.getItem("usuarioLogado");
   let loginexitParse = [];
   let isAdmin = false;
@@ -129,7 +135,9 @@ const Header = () => {
                 )}
 
                 <li className="text-center">
+                  
                   <span
+                  handleLogout
                     className="text-light hovertext px-2 py-1"
                     role="button"
                     onClick={() => {
