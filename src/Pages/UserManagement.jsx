@@ -58,66 +58,67 @@ export default function UserManagement() {
           <Header />
           <div className="user-management vh-100">
             <h1>Gerenciamento de Usuários</h1>
-
-            {users.map((user) => (
-              <div className="user-card" key={user.id}>
-                {editingId === user.id ? (
-                  <>
-                    <input
-                      type="text"
-                      value={form.name}
-                      onChange={(e) =>
-                        setForm({ ...form, name: e.target.value })
-                      }
-                    />
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={(e) =>
-                        setForm({ ...form, email: e.target.value })
-                      }
-                    />
-                    <input
-                      type="password"
-                      value={form.password}
-                      onChange={(e) =>
-                        setForm({ ...form, password: e.target.value })
-                      }
-                    />
-                    <button className="save" onClick={saveEdit}>
-                      Salvar
-                    </button>
-                    <button
-                      className="cancel"
-                      onClick={() => setEditingId(null)}
-                    >
-                      Cancelar
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <p>
-                      <strong>Nome:</strong> {user.nome}
-                    </p>
-                    <p>
-                      <strong>Email:</strong> {user.email}
-                    </p>
-                    <p>
-                      <strong>Senha:</strong> ******
-                    </p>
-                    <button className="edit" onClick={() => startEdit(user)}>
-                      Editar
-                    </button>
-                    <button
-                      className="delete"
-                      onClick={() => deleteUser(user.nome)}
-                    >
-                      Deletar
-                    </button>
-                  </>
-                )}
-              </div>
-            ))}
+            <div className="overflow-y-scroll h-75">
+              {users.map((user) => (
+                <div className="user-card " key={user.id}>
+                  {editingId === user.id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={form.name}
+                        onChange={(e) =>
+                          setForm({ ...form, name: e.target.value })
+                        }
+                      />
+                      <input
+                        type="email"
+                        value={form.email}
+                        onChange={(e) =>
+                          setForm({ ...form, email: e.target.value })
+                        }
+                      />
+                      <input
+                        type="password"
+                        value={form.password}
+                        onChange={(e) =>
+                          setForm({ ...form, password: e.target.value })
+                        }
+                      />
+                      <button className="save" onClick={saveEdit}>
+                        Salvar
+                      </button>
+                      <button
+                        className="cancel"
+                        onClick={() => setEditingId(null)}
+                      >
+                        Cancelar
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        <strong>Nome:</strong> {user.nome}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {user.email}
+                      </p>
+                      <p>
+                        <strong>Senha:</strong> ******
+                      </p>
+                      <button className="edit" onClick={() => startEdit(user)}>
+                        Editar
+                      </button>
+                      <button
+                        className="delete"
+                        onClick={() => deleteUser(user.nome)}
+                      >
+                        Deletar
+                      </button>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
           <Footer />
         </div>
