@@ -35,8 +35,7 @@ const FormCadastro = () => {
 
   // Validações
   const validarNome = (nome) => nome.trim().length >= 3;
-  const validarEmail = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validarSenha = (senha) => {
     return (
       senha.length >= 8 &&
@@ -45,15 +44,18 @@ const FormCadastro = () => {
       /[^A-Za-z0-9]/.test(senha) // pelo menos um caractere especial
     );
   };
-  const validarCPF = (cpf) =>
-    /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
+  const validarCPF = (cpf) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
 
   const criarUsuario = () => {
     const novosErros = {};
-    if (!validarNome(Nome)) novosErros.Nome = "Nome deve ter pelo menos 3 letras.";
+    if (!validarNome(Nome))
+      novosErros.Nome = "Nome deve ter pelo menos 3 letras.";
     if (!validarEmail(Email)) novosErros.Email = "Email inválido.";
-    if (!validarSenha(Senha)) novosErros.Senha = "Senha deve ter pelo menos 8 caracteres, uma maiúscula, uma minúscula e um caractere especial.";
-    if (!validarCPF(CPF)) novosErros.CPF = "CPF inválido. Use o formato 000.000.000-00.";
+    if (!validarSenha(Senha))
+      novosErros.Senha =
+        "Senha deve ter pelo menos 8 caracteres, uma maiúscula, uma minúscula e um caractere especial.";
+    if (!validarCPF(CPF))
+      novosErros.CPF = "CPF inválido. Use o formato 000.000.000-00.";
 
     setErros(novosErros);
     if (Object.keys(novosErros).length > 0) return;
@@ -82,37 +84,48 @@ const FormCadastro = () => {
       <span className="fs-4 fw-semibold">Cadastro</span>
 
       <div className="w-100 d-flex flex-column justify-content-center align-items-center mt-4">
-        <Inputlabel
-          label="Nome"
-          placeholder="Nome"
-          value={Nome}
-          onchange={(e) => setNome(e.target.value)}
-        />
-        {erros.Nome && <span style={{ color: "red" }}>{erros.Nome}</span>}
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="Nome"
+            placeholder="Nome"
+            value={Nome}
+            onchange={(e) => setNome(e.target.value)}
+          />
+          {erros.Nome && <span style={{ color: "red" }}>{erros.Nome}</span>}
+        </div>
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="Email"
+            placeholder="Email"
+            value={Email}
+            onchange={(e) => setEmail(e.target.value)}
+          />
+          {erros.Email && <span style={{ color: "red" }}>{erros.Email}</span>}
+        </div>
 
-        <Inputlabel
-          label="Email"
-          placeholder="Email"
-          value={Email}
-          onchange={(e) => setEmail(e.target.value)}
-        />
-        {erros.Email && <span style={{ color: "red" }}>{erros.Email}</span>}
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="Senha"
+            placeholder="Senha"
+            value={Senha}
+            onchange={(e) => setSenha(e.target.value)}
+          />
+          {erros.Senha && (
+            <span className="text-danger text-center w-75">{erros.Senha}</span>
+          )}
+        </div>
 
-        <Inputlabel
-          label="Senha"
-          placeholder="Senha"
-          value={Senha}
-          onchange={(e) => setSenha(e.target.value)}
-        />
-        {erros.Senha && <span style={{ color: "red" }}>{erros.Senha}</span>}
-
-        <Inputlabel
-          label="CPF"
-          placeholder="CPF"
-          value={CPF}
-          onchange={handleCPFChange}
-        />
-        {erros.CPF && <span style={{ color: "red" }}>{erros.CPF}</span>}
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="CPF"
+            placeholder="CPF"
+            value={CPF}
+            onchange={handleCPFChange}
+          />
+          {erros.CPF && (
+            <span className="text-danger text-center w-75">{erros.CPF}</span>
+          )}
+        </div>
       </div>
       <div className="mt-3">
         <span
