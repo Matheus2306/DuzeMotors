@@ -11,6 +11,11 @@ const FormCadastro = () => {
   const navigate = useNavigate();
   const [erro, seterro] = useState(false);
 
+  //Gerar ID
+  const gerarId = () => {
+    return Math.floor(Math.random() * 1000000);
+  }
+
   //função para criar o usuario e armazenar no localStorage
   const criarUsuario = () => {
     if (!Nome || !Email || !Senha || !CPF) {
@@ -21,6 +26,7 @@ const FormCadastro = () => {
       return;
     } else {
       const usuario = {
+        id: gerarId(),
         nome: Nome,
         email: Email,
         senha: Senha,

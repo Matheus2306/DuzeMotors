@@ -26,24 +26,37 @@ export default function UserManagement() {
 
   const startEdit = (user) => {
     setEditingId(user.id);
-    setForm({ name: user.name, email: user.email, password: user.password });
+    setForm({ name: user.nome, email: user.email, password: user.senha });
   };
 
   const saveEdit = () => {
     const updated = users.map((u) =>
       u.id === editingId
-        ? { ...u, name: form.name, email: form.email, password: form.password }
+        ? { ...u, nome: form.name, email: form.email, senha: form.password }
         : u
     );
     updateLocalStorage(updated);
+
+    // Atualiza o usuarioLogado se for o mesmo usuário editado
+    const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+    const editedUser = updated.find((u) => u.id === editingId);
+    if (usuarioLogado && editedUser && usuarioLogado.id === editingId) {
+      localStorage.setItem("usuarioLogado", JSON.stringify(editedUser));
+    }
+
     setEditingId(null);
     setForm({ name: "", email: "", password: "" });
   };
 
-  const deleteUser = (nome) => {
+  const deleteUser = (id) => {
     if (window.confirm("Tem certeza que quer deletar esse usuário?")) {
-      const updated = users.filter((u) => u.nome !== nome);
+      const updated = users.filter((u) => u.id !== id);
       updateLocalStorage(updated);
+      // Se o usuário deletado for o logado, remova do localStorage
+      const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (usuarioLogado && usuarioLogado.id === id) {
+        localStorage.removeItem("usuarioLogado");
+      }
     }
   };
 
@@ -110,7 +123,7 @@ export default function UserManagement() {
                       </button>
                       <button
                         className="delete"
-                        onClick={() => deleteUser(user.nome)}
+                        onClick={() => deleteUser(user.id)}
                       >
                         Deletar
                       </button>
