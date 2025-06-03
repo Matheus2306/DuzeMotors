@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Header from "../Components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import NotFound from "./NotFound";
+import { useNavigate } from "react-router";
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [search, setSearch] = useState(""); // Estado da pesquisa
 
   useEffect(() => {
     const savedUsers = localStorage.getItem("usuariosCadastro");
@@ -37,7 +39,6 @@ export default function UserManagement() {
     );
     updateLocalStorage(updated);
 
-    // Atualiza o usuarioLogado se for o mesmo usuário editado
     const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
     const editedUser = updated.find((u) => u.id === editingId);
     if (usuarioLogado && editedUser && usuarioLogado.id === editingId) {
@@ -52,7 +53,6 @@ export default function UserManagement() {
     if (window.confirm("Tem certeza que quer deletar esse usuário?")) {
       const updated = users.filter((u) => u.id !== id);
       updateLocalStorage(updated);
-      // Se o usuário deletado for o logado, remova do localStorage
       const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
       if (usuarioLogado && usuarioLogado.id === id) {
         localStorage.removeItem("usuarioLogado");
@@ -61,76 +61,116 @@ export default function UserManagement() {
   };
 
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
-  //verifica se o usuario é adm
   const isAdm = usuarioLogado && usuarioLogado.Role === "ADM";
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/gerenciamento");
+  };
+
+  // Filtro de usuários com base no campo de busca
+  const filteredUsers = users.filter(
+    (user) =>
+      user.nome.toLowerCase().includes(search.toLowerCase()) ||
+      user.email.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div>
       {isAdm ? (
         <div className="w-100 h-100">
           <Header />
-          <div className="user-management vh-100">
+          <div className="">
+            <span
+              className="mx-5 text-decoration-none text-black hovertext fs-5"
+              role="button"
+              onClick={handleClick}
+            >
+              <i className="bi bi-arrow-left">Voltar</i>
+            </span>
+          </div>
+          <div className="user-management vh-100 px-3">
             <h1>Gerenciamento de Usuários</h1>
+
+            {/* Campo de pesquisa */}
+            <input
+              type="text"
+              placeholder="Pesquisar por nome ou e-mail"
+              className="form-control my-3 border-bottom border-3"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
             <div className="overflow-y-scroll h-75">
-              {users.map((user) => (
-                <div className="user-card " key={user.id}>
-                  {editingId === user.id ? (
-                    <>
-                      <input
-                        type="text"
-                        value={form.name}
-                        onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
-                        }
-                      />
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={(e) =>
-                          setForm({ ...form, email: e.target.value })
-                        }
-                      />
-                      <input
-                        type="password"
-                        value={form.password}
-                        onChange={(e) =>
-                          setForm({ ...form, password: e.target.value })
-                        }
-                      />
-                      <button className="save" onClick={saveEdit}>
-                        Salvar
-                      </button>
-                      <button
-                        className="cancel"
-                        onClick={() => setEditingId(null)}
-                      >
-                        Cancelar
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <p>
-                        <strong>Nome:</strong> {user.nome}
-                      </p>
-                      <p>
-                        <strong>Email:</strong> {user.email}
-                      </p>
-                      <p>
-                        <strong>Senha:</strong> ******
-                      </p>
-                      <button className="edit" onClick={() => startEdit(user)}>
-                        Editar
-                      </button>
-                      <button
-                        className="delete"
-                        onClick={() => deleteUser(user.id)}
-                      >
-                        Deletar
-                      </button>
-                    </>
-                  )}
-                </div>
-              ))}
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user) => (
+                  <div className="user-card border p-3 mb-2 rounded" key={user.id}>
+                    {editingId === user.id ? (
+                      <>
+                        <input
+                          type="text"
+                          value={form.name}
+                          onChange={(e) =>
+                            setForm({ ...form, name: e.target.value })
+                          }
+                          className="form-control mb-2"
+                        />
+                        <input
+                          type="email"
+                          value={form.email}
+                          onChange={(e) =>
+                            setForm({ ...form, email: e.target.value })
+                          }
+                          className="form-control mb-2"
+                        />
+                        <input
+                          type="password"
+                          value={form.password}
+                          onChange={(e) =>
+                            setForm({ ...form, password: e.target.value })
+                          }
+                          className="form-control mb-2"
+                        />
+                        <button className="btn btn-primary me-2" onClick={saveEdit}>
+                          Salvar
+                        </button>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => setEditingId(null)}
+                        >
+                          Cancelar
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <p>
+                          <strong>Nome:</strong> {user.nome}
+                        </p>
+                        <p>
+                          <strong>Email:</strong> {user.email}
+                        </p>
+                        <p>
+                          <strong>Senha:</strong> ******
+                        </p>
+                        <button
+                          className="btn btn-primary me-2"
+                          onClick={() => startEdit(user)}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteUser(user.id)}
+                        >
+                          Deletar
+                        </button>
+                      </>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p>Nenhum usuário encontrado.</p>
+              )}
             </div>
           </div>
           <Footer />
