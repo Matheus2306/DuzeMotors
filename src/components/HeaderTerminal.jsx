@@ -4,8 +4,6 @@ const HeaderTerminal = (props) => {
   const[searchTerm, setSearchTerm] = useState("");
 
 
-
-
   return (
     <div className="p-3 d-flex align-items-center border-bottom border-2 justify-content-between">
       <div className="d-flex align-items-center w-50">
@@ -18,7 +16,13 @@ const HeaderTerminal = (props) => {
             type="text"
             placeholder="Procurar"
             className="bg-link-light border-bottom border-dark opacity-50 rounded w-100 p-2 pe-5 shadow"
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                props.handleSearch(searchTerm);
+              }
+            }}
           />
           <i
             className="bi bi-search fs-5 text-secondary position-absolute"
@@ -35,7 +39,7 @@ const HeaderTerminal = (props) => {
       <span
         className="px-2 py-1 rounded mx-2 btnhover"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target={props.target}
         data-bs-whatever="@mdo"
         role="button"
       >

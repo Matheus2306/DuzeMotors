@@ -7,7 +7,7 @@ const Inputlabel = (props) => {
         {props.label}
       </label>
       <input
-        type="text"
+        type={props.type || "text"} // Permite definir o tipo do input, padrão é "text"
         id={props.label}
         className="form-control mb-3 border-bottom"
         placeholder={props.placeholder}

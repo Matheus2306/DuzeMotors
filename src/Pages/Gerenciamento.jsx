@@ -4,12 +4,20 @@ import NotFound from "./NotFound";
 import Header from "../components/Header";
 import TerminalFornecedor from "../components/GerenciamentoDeADM/TerminalFornecedor";
 import ModalFornecedor from "../components/GerenciamentoDeADM/ModalFornecedor";
+import ModalProduto from "../components/GerenciamentoDeADM/ModalProduto";
+import ModalEditarFornecedor from "../components/GerenciamentoDeADM/ModalEditarFornecedor";
+import ModalEditarProduto from "../components/GerenciamentoDeADM/ModalEditarProduto";
+import { useNavigate } from "react-router";
 
 const Gerenciamento = () => {
   //coletar o usuario logado
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   //verifica se o usuario é adm
   const isAdm = usuarioLogado && usuarioLogado.Role === "ADM";
+  const navigate = useNavigate();
+  const handleClick = () => {
+  navigate("/gerenciamento/UserManagement");
+  }
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -58,6 +66,7 @@ const Gerenciamento = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Adicione este estado
   const [cnpjError, setCnpjError] = useState(false);
   const [camposError, setCamposError] = useState(false);
+  const [idFornecedorEditando, setIdFornecedorEditando] = useState(null);
 
   useEffect(() => {
     // Sempre que fornecedores OU searchTerm mudar, atualize a lista exibida
@@ -83,6 +92,13 @@ const Gerenciamento = () => {
     return Math.floor(Math.random() * 1000000);
   };
 
+  const camposResetados = () => {
+    setNome("");
+    setCnpj("");
+    setNumero("");
+    setemail("");
+  };
+
   //cria a função de fornecedores
   const handleCreateFornecedor = () => {
     //verifica se todos os campos foram preenchidos
@@ -92,10 +108,7 @@ const Gerenciamento = () => {
         setCamposError(false);
       }, 3500);
       //campos resetados
-      setNome("");
-      setCnpj("");
-      setNumero("");
-      setemail("");
+      camposResetados();
       return;
     } else {
       //verifica se o fornecedor já existe pelo cnpj
@@ -110,10 +123,7 @@ const Gerenciamento = () => {
           setCnpjError(false);
         }, 3500);
         //limpa os campos do modal
-        setNome("");
-        setCnpj("");
-        setNumero("");
-        setemail("");
+        camposResetados();
       } else {
         // cria um novo fornecedor
         const novoFornecedor = {
@@ -131,10 +141,7 @@ const Gerenciamento = () => {
         );
         setFornecedores(fornecedoresStorage);
         //limpa os campos do modal
-        setNome("");
-        setCnpj("");
-        setNumero("");
-        setemail("");
+        camposResetados();
       }
     }
   };
@@ -159,6 +166,144 @@ const Gerenciamento = () => {
     setSearchTerm(term); // Atualize o termo de busca
   };
 
+  //função para editar fornecedor pelo Id
+
+  const handleEditFornecedor = (id, dadosEditados) => {
+    const fornecedoresAtualizados = fornecedores.map((f) =>
+      f.id === id ? { ...f, ...dadosEditados } : f
+    );
+    setFornecedores(fornecedoresAtualizados);
+    setFornecedoresExibidos(fornecedoresAtualizados);
+    localStorage.setItem(
+      "fornecedores",
+      JSON.stringify(fornecedoresAtualizados)
+    );
+  };
+
+  //Produtos
+  const [NomeProduto, setNomeProduto] = useState("");
+  const [PrecoProduto, setPrecoProduto] = useState("");
+  const [QuantidadeProduto, setQuantidadeProduto] = useState("");
+  const [MarcaProduto, setMarcaProduto] = useState("");
+  const [Modelo, setModelo] = useState("");
+  const [Quilometragem, setQuilometragem] = useState("");
+  const [tipoCombustivel, setTipoCombustivel] = useState("");
+  const [imagem, setImagem] = useState("");
+  const [Produtoserr, setProduterr] = useState("");
+  const [veiculo, setVeiculo] = useState(() => {
+    return JSON.parse(localStorage.getItem("veiculo")) || [];
+  });
+  const [veiculosExibidos, setVeiculosExibidos] = useState(veiculo);
+  const [idProdutoEditando, setIdProdutoEditando] = useState(null);
+
+  useEffect(() => {
+    setVeiculosExibidos(veiculo);
+  }, [veiculo]);
+
+  const handleSearchVeiculo = (searchTerm) => {
+    if (!searchTerm) {
+      setVeiculosExibidos(veiculo);
+      return;
+    }
+    const resultado = veiculo.filter((v) =>
+      v.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setVeiculosExibidos(resultado);
+  };
+
+  const camposProdutoResetados = () => {
+    setNomeProduto("");
+    setPrecoProduto("");
+    setQuantidadeProduto("");
+    setMarcaProduto("");
+    setModelo("");
+    setQuilometragem("");
+    setTipoCombustivel("");
+    setImagem("");
+  };
+  //função para sincronizar os veiculos
+  const sincronizarVeiculos = (veiculosAtualizados) => {
+    localStorage.setItem("veiculo", JSON.stringify(veiculosAtualizados));
+  };
+  //função para criar veiculo
+  const handleCreateVeiculo = () => {
+    if (
+      !NomeProduto ||
+      !PrecoProduto ||
+      !QuantidadeProduto ||
+      !MarcaProduto ||
+      !Modelo ||
+      !Quilometragem ||
+      !tipoCombustivel
+    ) {
+      setCamposError(true);
+      setTimeout(() => {
+        setCamposError(false);
+      }, 3500);
+      //campos resetados
+      camposProdutoResetados();
+      return;
+    } else {
+      //verifica se o veiculo já existe pelo nome
+
+      const veiculoExistente = veiculo.find(
+        (veiculo) => veiculo.nome === NomeProduto
+      );
+      if (veiculoExistente) {
+        setProduterr(true);
+        setTimeout(() => {
+          setProduterr(false);
+        }, 3500);
+        //limpa os campos do modal
+        camposProdutoResetados();
+        return;
+      } else {
+        const novoVeiculo = {
+          id: gerarId(),
+          nome: NomeProduto,
+          preco: PrecoProduto,
+          quantidade: QuantidadeProduto,
+          marca: MarcaProduto,
+          modelo: Modelo,
+          quilometragem: Quilometragem,
+          tipoCombustivel: tipoCombustivel,
+          imagem: imagem,
+        };
+        //adiciona o novo veiculo ao localStorage
+        const veiculosStorage =
+          JSON.parse(localStorage.getItem("veiculo")) || [];
+        veiculosStorage.push(novoVeiculo);
+        sincronizarVeiculos(veiculosStorage);
+        //zera os campos do modal
+        camposProdutoResetados();
+        window.location.reload(); // Recarrega a página para atualizar a lista de veículos
+      }
+    }
+  };
+  // Função para remover um veículo
+  const handleRemoveVeiculo = (veiculo) => {
+    // Obtém a lista atual de veículos do localStorage
+    const veiculosStorage = JSON.parse(localStorage.getItem("veiculo")) || [];
+
+    // Filtra o veículo a ser removido
+    const veiculosAtualizados = veiculosStorage.filter(
+      (v) => v.id !== veiculo.id
+    );
+
+    // Atualiza o localStorage com a lista filtrada
+    sincronizarVeiculos(veiculosAtualizados);
+    setVeiculo(veiculosAtualizados);
+  };
+
+  const handleEditProduto = (id, dadosEditados) => {
+    const veiculosAtualizados = veiculo.map((v) =>
+      v.id === id ? { ...v, ...dadosEditados } : v
+    );
+    setVeiculo(veiculosAtualizados);
+    setVeiculosExibidos(veiculosAtualizados);
+    localStorage.setItem("veiculo", JSON.stringify(veiculosAtualizados));
+  };
+
   return (
     <div>
       {isAdm ? (
@@ -167,39 +312,121 @@ const Gerenciamento = () => {
           <div className="w-100 h-100 ">
             <div className="text-center mt-4">
               <span className="fs-4 fw-semibold">
-                gerenciamento de Administrador
+                Gerenciamento de Administrador
               </span>
             </div>
-            <div className="w-100 h-100 mt-4 p-4">
+            <div className="text-end">
+              <span
+                className="mx-5 text-decoration-underline text-primary fs-5"
+                role="button"
+                onClick={handleClick}
+              >
+                Usuários<i className="bi bi-arrow-right"></i>
+              </span>
+            </div>
+            <div className="w-100 h-100 mt-4 p-4 d-flex gap-4">
               <TerminalFornecedor
                 title="Fornecedor"
-                ItemManipulado={fornecedoresExibidos}
-                setemail={setemail}
-                setCnpj={setCnpj}
-                setNumero={setNumero}
-                setNome={setNome}
-                handleCreateFornecedor={handleCreateFornecedor}
+                ItemManipuladoFor={fornecedoresExibidos}
                 handleRemoveFornecedor={handleRemoveFornecedor}
                 handleSearch={handleSearch}
-                email={email}
-                cnpj={cnpj}
-                numero={numero}
-                nome={nome}
-              />
-              <ModalFornecedor
+                handleEditFornecedor={handleEditFornecedor}
+                target="#exampleModal"
                 setNome={setNome}
-                setemail={setemail}
                 setCnpj={setCnpj}
                 setNumero={setNumero}
-                handleCreateFornecedor={handleCreateFornecedor}
+                setEmail={setemail}
+                setIdFornecedorEditando={setIdFornecedorEditando}
                 nome={nome}
                 cnpj={cnpj}
                 numero={numero}
                 email={email}
-                cnpjError={cnpjError}
-                camposError={camposError}
+                target2="#ModalEditarFornecedor"
+              />
+              <TerminalFornecedor
+                title="Produtos"
+                ItemManipuladoVei={veiculosExibidos}
+                handleRemoveFornecedor={handleRemoveVeiculo}
+                handleSearch={handleSearchVeiculo}
+                target="#ModalProduto"
+                setIdProdutoEditando={setIdProdutoEditando}
+                setNomeProduto={setNomeProduto}
+                setPrecoProduto={setPrecoProduto}
+                setQuantidadeProduto={setQuantidadeProduto}
+                setMarcaProduto={setMarcaProduto}
+                setModelo={setModelo}
+                setQuilometragem={setQuilometragem}
+                setTipoCombustivel={setTipoCombustivel}
+                setImagem={setImagem}
               />
             </div>
+
+            <ModalFornecedor
+              setNome={setNome}
+              setemail={setemail}
+              setCnpj={setCnpj}
+              setNumero={setNumero}
+              handleCreateFornecedor={handleCreateFornecedor}
+              nome={nome}
+              cnpj={cnpj}
+              numero={numero}
+              email={email}
+              cnpjError={cnpjError}
+              camposError={camposError}
+            />
+            <ModalProduto
+              setNomeProduto={setNomeProduto}
+              setPrecoProduto={setPrecoProduto}
+              setQuantidadeProduto={setQuantidadeProduto}
+              setMarcaProduto={setMarcaProduto}
+              setModelo={setModelo}
+              setQuilometragem={setQuilometragem}
+              setTipoCombustivel={setTipoCombustivel}
+              setImagem={setImagem}
+              handleCreateVeiculo={handleCreateVeiculo}
+              nomeProduto={NomeProduto}
+              precoProduto={PrecoProduto}
+              quantidadeProduto={QuantidadeProduto}
+              marcaProduto={MarcaProduto}
+              modelo={Modelo}
+              quilometragem={Quilometragem}
+              tipoCombustivel={tipoCombustivel}
+              imagem={imagem}
+              Produtoserr={Produtoserr}
+              camposError={camposError}
+            />
+            <ModalEditarFornecedor
+              id={idFornecedorEditando}
+              nome={nome}
+              setNome={setNome}
+              cnpj={cnpj}
+              setCnpj={setCnpj}
+              numero={numero}
+              setNumero={setNumero}
+              email={email}
+              setEmail={setemail}
+              handleEditFornecedor={handleEditFornecedor}
+            />
+            <ModalEditarProduto
+              id={idProdutoEditando}
+              nome={NomeProduto}
+              setNome={setNomeProduto}
+              preco={PrecoProduto}
+              setPreco={setPrecoProduto}
+              quantidade={QuantidadeProduto}
+              setQuantidade={setQuantidadeProduto}
+              marca={MarcaProduto}
+              setMarca={setMarcaProduto}
+              modelo={Modelo}
+              setModelo={setModelo}
+              quilometragem={Quilometragem}
+              setQuilometragem={setQuilometragem}
+              tipoCombustivel={tipoCombustivel}
+              setTipoCombustivel={setTipoCombustivel}
+              imagem={imagem}
+              setImagem={setImagem}
+              handleEditProduto={handleEditProduto}
+            />
           </div>
           <Footer />
         </div>
