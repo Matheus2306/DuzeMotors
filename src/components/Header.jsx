@@ -26,9 +26,18 @@ const Header = () => {
   };
 
   const loginexit = localStorage.getItem("usuarioLogado");
-  const loginexitParse = JSON.parse(loginexit);
-  // Verifica se o usuário é admin
-  const isAdmin = loginexitParse && loginexitParse.Role;
+  let loginexitParse = [];
+  let isAdmin = false;
+
+    if (loginexit) {
+      try {
+        loginexitParse = JSON.parse(loginexit);
+        isAdmin = loginexitParse.Role === "ADM";
+      } catch {
+        loginexitParse = null;
+        isAdmin = false;
+      }
+    }
 
 
   return (

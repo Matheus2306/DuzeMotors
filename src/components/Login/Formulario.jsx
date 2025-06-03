@@ -73,7 +73,7 @@ const Formulario = () => {
           <input
             type="email"
             id="Email"
-            className="form-control"
+            className="form-control border-bottom border-2"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           />
@@ -86,7 +86,7 @@ const Formulario = () => {
             type="password"
             id="Senha"
             onChange={(e) => setSenha(e.target.value)}
-            className="form-control"
+            className="form-control border-bottom border-2"
             placeholder="Senha"
           />
         </div>
