@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Login/Header.jsx";
 import Footer from "../components/Geral/Footer.jsx";
 import NotFound from "./NotFound";
 import { useNavigate } from "react-router";
+import Header from "../components/Login/Header.jsx";
+
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
