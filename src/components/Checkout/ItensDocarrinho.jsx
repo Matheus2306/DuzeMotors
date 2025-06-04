@@ -25,6 +25,11 @@ const ItensDocarrinho = () => {
     navigate("/catalogo");
   };
 
+  //função de multiplicar o preço pela quantidade
+  const calculateTotalPrice = (price, quantidade) => {
+    return price* quantidade;
+  }
+
   return (
     <div className="w-100 shadow bg-light rounded-3 p-4">
       <div className="mb-2 border-bottom p-1">
@@ -42,6 +47,7 @@ const ItensDocarrinho = () => {
             price={item.price}
             quantity={item.quantity}
             onRemove={() => handleRemoveItem(index)} // Pass the remove handler
+            calculateTotalPrice={calculateTotalPrice}
           />
         ))}
       </div>
