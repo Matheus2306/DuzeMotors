@@ -25,10 +25,25 @@ const Header = () => {
     navigate("/SobreNos");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogado");
+    navigate("/login");
+  };
+  
+  
   const loginexit = localStorage.getItem("usuarioLogado");
-  const loginexitParse = JSON.parse(loginexit);
-  // Verifica se o usuário é admin
-  const isAdmin = loginexitParse && loginexitParse.Role;
+  let loginexitParse = [];
+  let isAdmin = false;
+
+    if (loginexit) {
+      try {
+        loginexitParse = JSON.parse(loginexit);
+        isAdmin = loginexitParse.Role === "ADM";
+      } catch {
+        loginexitParse = null;
+        isAdmin = false;
+      }
+    }
 
 
   return (
@@ -120,7 +135,9 @@ const Header = () => {
                 )}
 
                 <li className="text-center">
+                  
                   <span
+                  handleLogout
                     className="text-light hovertext px-2 py-1"
                     role="button"
                     onClick={() => {

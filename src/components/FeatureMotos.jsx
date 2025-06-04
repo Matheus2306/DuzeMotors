@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router';
 import MotoCard from './MotoCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FeaturedMotos = () => {
   const scrollRef = useRef();
+  const navigate = useNavigate();
 
   const motos = [
     {
@@ -112,7 +114,12 @@ const FeaturedMotos = () => {
         </div>
 
         <div className="text-center mt-4">
-          <button className="btn btn-danger btn-lg">Ver todos os modelos</button>
+          <button
+            className="btn btnhover text-light"
+            onClick={() => navigate('/catalogo')}
+          >
+            Ver todos os modelos
+          </button>
         </div>
       </div>
     </section>

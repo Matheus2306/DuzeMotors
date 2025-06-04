@@ -1,43 +1,82 @@
-import React, { use, useState } from "react";
-import Inputlabel from "./Inputlabel";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
+
+// Exemplo de Inputlabel.jsx
+const Inputlabel = ({ label, placeholder, value, onchange }) => (
+  <div className="w-75">
+    <label className="mb-2 mx-2">{label}</label>
+    <input
+      className="form-control mb-3"
+      placeholder={placeholder}
+      value={value}
+      onChange={onchange}
+    />
+  </div>
+);
 
 const FormCadastro = () => {
   const [Senha, setSenha] = useState("");
   const [Nome, setNome] = useState("");
   const [Email, setEmail] = useState("");
   const [CPF, setCPF] = useState("");
-  const [Role, setRole] = useState("user"); // Define o papel padrão como 'user'
-  const navigate = useNavigate();
+  const [Role, setRole] = useState("user");
+  const [erros, setErros] = useState({});
   const [erro, seterro] = useState(false);
+  const navigate = useNavigate();
 
-  //função para criar o usuario e armazenar no localStorage
+  // Máscara para CPF
+  const handleCPFChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    setCPF(value);
+  };
+
+  // Validações
+  const validarNome = (nome) => nome.trim().length >= 3;
+  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarSenha = (senha) => {
+    return (
+      senha.length >= 8 &&
+      /[A-Z]/.test(senha) && // pelo menos uma maiúscula
+      /[a-z]/.test(senha) && // pelo menos uma minúscula
+      /[^A-Za-z0-9]/.test(senha) // pelo menos um caractere especial
+    );
+  };
+  const validarCPF = (cpf) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
+
   const criarUsuario = () => {
-    if (!Nome || !Email || !Senha || !CPF) {
-      seterro(true);
-      setTimeout(() => {
-        seterro(false);
-      }, 3500);
-      return;
-    } else {
-      const usuario = {
-        nome: Nome,
-        email: Email,
-        senha: Senha,
-        cpf: CPF,
-        Role: Role,
-      };
+    const novosErros = {};
+    if (!validarNome(Nome))
+      novosErros.Nome = "Nome deve ter pelo menos 3 letras.";
+    if (!validarEmail(Email)) novosErros.Email = "Email inválido.";
+    if (!validarSenha(Senha))
+      novosErros.Senha =
+        "Senha deve ter pelo menos 8 caracteres, uma maiúscula, uma minúscula e um caractere especial.";
+    if (!validarCPF(CPF))
+      novosErros.CPF = "CPF inválido. Use o formato 000.000.000-00.";
 
-      // Verifica se o localStorage já possui usuários
-      const usuariosExistentes =
-        JSON.parse(localStorage.getItem("usuariosCadastro")) || [];
-      usuariosExistentes.push(usuario);
-      localStorage.setItem(
-        "usuariosCadastro",
-        JSON.stringify(usuariosExistentes)
-      );
-      navigate("/login");
-    }
+    setErros(novosErros);
+    if (Object.keys(novosErros).length > 0) return;
+
+    const usuario = {
+      id: Math.floor(Math.random() * 1000000),
+      nome: Nome,
+      email: Email,
+      senha: Senha,
+      cpf: CPF,
+      Role: Role,
+    };
+
+    const usuariosExistentes =
+      JSON.parse(localStorage.getItem("usuariosCadastro")) || [];
+    usuariosExistentes.push(usuario);
+    localStorage.setItem(
+      "usuariosCadastro",
+      JSON.stringify(usuariosExistentes)
+    );
+    navigate("/login");
   };
 
   return (
@@ -45,40 +84,49 @@ const FormCadastro = () => {
       <span className="fs-4 fw-semibold">Cadastro</span>
 
       <div className="w-100 d-flex flex-column justify-content-center align-items-center mt-4">
-        <Inputlabel label="Nome" placeholder="Nome" onchange={setNome} />
-        <div className="w-75">
-          <label htmlFor="Email" className="mb-2 mx-2">
-            Email
-          </label>
-          <input
-            type="email"
-            id="Email"
-            className="form-control mb-3"
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="Nome"
+            placeholder="Nome"
+            value={Nome}
+            onchange={(e) => setNome(e.target.value)}
+          />
+          {erros.Nome && <span style={{ color: "red" }}>{erros.Nome}</span>}
+        </div>
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="Email"
             placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            value={Email}
+            onchange={(e) => setEmail(e.target.value)}
           />
+          {erros.Email && <span style={{ color: "red" }}>{erros.Email}</span>}
         </div>
-        <div className="w-75">
-          <label htmlFor="Email" className="mb-2">
-            Senha
-          </label>
-          <input
-            type="password"
-            id="senha"
-            className="form-control mb-3"
+
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="Senha"
             placeholder="Senha"
-            onChange={(e) => setSenha(e.target.value)}
+            value={Senha}
+            onchange={(e) => setSenha(e.target.value)}
           />
+          {erros.Senha && (
+            <span className="text-danger text-center w-75">{erros.Senha}</span>
+          )}
         </div>
-        <Inputlabel label="CPF" placeholder="CPF" onchange={setCPF} />
+
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+          <Inputlabel
+            label="CPF"
+            placeholder="CPF"
+            value={CPF}
+            onchange={handleCPFChange}
+          />
+          {erros.CPF && (
+            <span className="text-danger text-center w-75">{erros.CPF}</span>
+          )}
+        </div>
       </div>
-      {erro && (
-        <div className="w-100 h-25 text-center p-2 bg-danger-subtle rounded border border-danger my-3">
-          <span className="text-danger fw-semibold">
-            preencha todos os campos
-          </span>
-        </div>
-      )}
       <div className="mt-3">
         <span
           onClick={criarUsuario}

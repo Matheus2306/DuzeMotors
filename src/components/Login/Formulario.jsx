@@ -21,6 +21,7 @@ const Formulario = () => {
     );
     if (!admExists) {
       cadastros.push({
+        id: Math.floor(Math.random() * 1000000), // Gerar um ID aleatório
         nome: "Administrador",
         email: "adm@adm.com",
         senha: "1234",
@@ -73,7 +74,7 @@ const Formulario = () => {
           <input
             type="email"
             id="Email"
-            className="form-control"
+            className="form-control border-bottom border-2"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           />
@@ -86,7 +87,7 @@ const Formulario = () => {
             type="password"
             id="Senha"
             onChange={(e) => setSenha(e.target.value)}
-            className="form-control"
+            className="form-control border-bottom border-2"
             placeholder="Senha"
           />
         </div>

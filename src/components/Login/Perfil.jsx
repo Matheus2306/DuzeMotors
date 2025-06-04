@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import HeaderLogs from '../HeaderLogs';
+import Footer from '../Footer';
 
 export default function Perfil() {
   const navigate = useNavigate();
@@ -9,86 +11,61 @@ export default function Perfil() {
   const [senha, setSenha] = useState('');
   const [metodoPagamento, setMetodoPagamento] = useState('');
   const [cpf, setCpf] = useState('');
+  const [id, setId] = useState(null); // pra identificar o usuário logado
 
   useEffect(() => {
-    const perfilSalvo = localStorage.getItem('perfil');
-    if (perfilSalvo) {
-      const dados = JSON.parse(perfilSalvo);
-      setNome(dados.nome || '');
-      setCpf(dados.cpf || '');
-      setTelefone(dados.telefone || '');
-      setEmail(dados.email || '');
-      setSenha(dados.senha || '');
-      setMetodoPagamento(dados.metodoPagamento || '');
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (usuarioLogado) {
+      setNome(usuarioLogado.nome || '');
+      setCpf(usuarioLogado.cpf || '');
+      setTelefone(usuarioLogado.telefone || '');
+      setEmail(usuarioLogado.email || '');
+      setSenha(usuarioLogado.senha || '');
+      setMetodoPagamento(usuarioLogado.metodoPagamento || '');
+      setId(usuarioLogado.id); // guarda o ID pra atualizar depois
     }
   }, []);
 
   const validarEmail = (email) => {
     const atIndex = email.indexOf('@');
-    if (atIndex < 1) return false;
     const dotIndex = email.indexOf('.', atIndex);
-    if (dotIndex <= atIndex + 1) return false;
-    if (dotIndex === email.length - 1) return false;
-    return true;
+    return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length - 1;
   };
 
-  const validarTelefone = (telefone) => {
-    const numeros = telefone.replace(/\D/g, '');
-    return numeros.length === 11;
-  };
+  const validarTelefone = (telefone) => telefone.replace(/\D/g, '').length === 11;
 
   const validarSenha = (senha) => {
-    if (senha.length < 8) return false;
-    let temMaiuscula = false;
-    let temMinuscula = false;
-    let temNumero = false;
-    let temEspecial = false;
-
-    for (let i = 0; i < senha.length; i++) {
-      const char = senha.charAt(i);
-      if (char >= 'A' && char <= 'Z') temMaiuscula = true;
-      else if (char >= 'a' && char <= 'z') temMinuscula = true;
-      else if (char >= '0' && char <= '9') temNumero = true;
-      else temEspecial = true;
-    }
-
-    return temMaiuscula && temMinuscula && temNumero && temEspecial;
+    return senha.length >= 8 &&
+      /[A-Z]/.test(senha) &&
+      /[a-z]/.test(senha) &&
+      /[0-9]/.test(senha) &&
+      /[^A-Za-z0-9]/.test(senha);
   };
 
-  const validarCPF = (cpf) => {
-    const numeros = cpf.replace(/\D/g, '');
-    return numeros.length === 11;
+  // Função para aplicar máscara e impedir letras
+  const handleCpfChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    setCpf(value);
   };
+
+  // Função para validar CPF (formato)
+  const validarCPF = (cpf) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
 
   const handleSalvar = () => {
-    if (!nome.trim()) {
-      alert('Por favor, insira seu nome.');
-      return;
-    }
-    if (!validarCPF(cpf)) {
-      alert('Por favor, insira um CPF válido com 11 dígitos.');
-      return;
-    }
-    if (!validarTelefone(telefone)) {
-      alert('Por favor, insira um telefone válido com 11 dígitos (DDD + número).');
-      return;
-    }
-    if (!validarEmail(email)) {
-      alert('Por favor, insira um email válido.');
-      return;
-    }
+    if (!nome.trim()) return alert('Por favor, insira seu nome.');
+    if (!validarCPF(cpf)) return alert('CPF inválido (formato: 000.000.000-00).');
+    if (!validarTelefone(telefone)) return alert('Telefone inválido (11 dígitos com DDD).');
+    if (!validarEmail(email)) return alert('Email inválido.');
     if (!validarSenha(senha)) {
-      alert(
-        'A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial.'
-      );
-      return;
+      return alert('A senha deve ter ao menos 8 caracteres, incluindo uma maiúscula, minúscula, número e símbolo.');
     }
-    if (!metodoPagamento) {
-      alert('Por favor, selecione um método de pagamento.');
-      return;
-    }
+    if (!metodoPagamento) return alert('Escolha um método de pagamento.');
 
-    const dadosPerfil = {
+    const usuarioAtualizado = {
+      id,
       nome,
       cpf,
       telefone,
@@ -97,85 +74,103 @@ export default function Perfil() {
       metodoPagamento,
     };
 
-    localStorage.setItem('perfil', JSON.stringify(dadosPerfil));
-    alert('Dados atualizados com sucesso!');
+    // Atualiza o usuário logado
+    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtualizado));
+
+    // Atualiza na lista de usuários cadastrados
+    const usuarios = JSON.parse(localStorage.getItem('usuariosCadastro')) || [];
+    const usuariosAtualizados = usuarios.map((u) =>
+      u.id === usuarioAtualizado.id ? { ...u, ...usuarioAtualizado } : u
+    );
+    localStorage.setItem('usuariosCadastro', JSON.stringify(usuariosAtualizados));
+
+    alert('Perfil atualizado com sucesso!');
     navigate('/');
   };
 
   return (
-    <div className="perfil-container">
-      <h1 className="perfil-titulo">Meu Perfil</h1>
+    <div>
+      <HeaderLogs />
 
-      <div className="perfil-secao">
-        <label>Nome:</label>
-        <input
-          type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          placeholder="Seu nome completo"
-        />
+      <div className="perfil-container">
+        <h1 className="perfil-titulo">Meu Perfil</h1>
+
+        <div className="perfil-secao">
+          <label>Nome:</label>
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Seu nome completo"
+          />
+        </div>
+
+        <div className="perfil-secao">
+          <label>Telefone:</label>
+          <input
+            type="tel"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+            placeholder="(00) 00000-0000"
+            maxLength={15}
+          />
+        </div>
+
+        <div className="perfil-secao">
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="seuemail@email.com"
+          />
+        </div>
+
+        <div className="perfil-secao">
+          <label>Senha:</label>
+          <input
+            type="password"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            placeholder="********"
+          />
+        </div>
+
+        <div className="perfil-secao">
+          <label>CPF:</label>
+          <input
+            type="text"
+            value={cpf}
+            onChange={handleCpfChange}
+            placeholder="000.000.000-00"
+            maxLength={14}
+          />
+          {!validarCPF(cpf) && cpf.length === 14 && (
+            <span style={{ color: "red" }}>CPF inválido</span>
+          )}
+        </div>
+
+        <div className="perfil-secao">
+          <label>Método de Pagamento:</label>
+          <select
+            value={metodoPagamento}
+            onChange={(e) => setMetodoPagamento(e.target.value)}
+          >
+            <option value="">Selecione</option>
+            <option value="pix">PIX</option>
+            <option value="cartao">Cartão de Crédito</option>
+            <option value="boleto">Boleto Bancário</option>
+          </select>
+        </div>
+
+        <div className="perfil-botao-container">
+          <button className="btn-acao" onClick={handleSalvar}>
+            Salvar Alterações
+          </button>
+        </div>
       </div>
 
-      <div className="perfil-secao">
-        <label>CPF:</label>
-        <input
-          type="text"
-          value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
-          placeholder="000.000.000-00"
-          maxLength={14}
-        />
-      </div>
-
-      <div className="perfil-secao">
-        <label>Telefone:</label>
-        <input
-          type="tel"
-          value={telefone}
-          onChange={(e) => setTelefone(e.target.value)}
-          placeholder="(00) 00000-0000"
-          maxLength={15}
-        />
-      </div>
-
-      <div className="perfil-secao">
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="seuemail@email.com"
-        />
-      </div>
-
-      <div className="perfil-secao">
-        <label>Senha:</label>
-        <input
-          type="password"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          placeholder="********"
-        />
-      </div>
-
-      <div className="perfil-secao">
-        <label>Método de Pagamento:</label>
-        <select
-          value={metodoPagamento}
-          onChange={(e) => setMetodoPagamento(e.target.value)}
-        >
-          <option value="">Selecione</option>
-          <option value="pix">PIX</option>
-          <option value="cartao">Cartão de Crédito</option>
-          <option value="boleto">Boleto Bancário</option>
-        </select>
-      </div>
-
-      <div className="perfil-botao-container">
-        <button className="btn-acao" onClick={handleSalvar}>
-          Salvar Alterações
-        </button>
-      </div>
+      <Footer />
     </div>
   );
 }

@@ -1,20 +1,36 @@
 import React from "react";
 import Inputlabel from "../Cadastro/Inputlabel";
 
-const ModalFornecedor = (props) => {
+const ModalEditarFornecedor = ({
+  id,
+  nome,
+  setNome,
+  cnpj,
+  setCnpj,
+  numero,
+  setNumero,
+  email,
+  setEmail,
+  handleEditFornecedor,
+}) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleEditFornecedor(id, { nome, cnpj, numero, email });
+  };
+
   return (
     <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      className="modal fade"
+      id="ModalEditarFornecedor"
+      tabIndex="-1"
+      aria-labelledby="modalEditarFornecedorLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header justify-content-between">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Criar
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header justify-content-between">
+            <h1 className="modal-title fs-5" id="modalEditarFornecedorLabel">
+              Editar Fornecedor
             </h1>
             <i
               className="bi bi-x fs-4"
@@ -22,22 +38,25 @@ const ModalFornecedor = (props) => {
               role="button"
             ></i>
           </div>
-          <div class="modal-body">
-            <form>
+          <div className="modal-body">
+            <form onSubmit={handleSubmit}>
               <Inputlabel
                 label="Nome"
                 placeholder="Nome"
-                onchange={props.setNome}
+                value={nome}
+                onchange={setNome}
               />
               <Inputlabel
                 label="CNPJ"
                 placeholder="CNPJ"
-                onchange={props.setCnpj}
+                value={cnpj}
+                onchange={setCnpj}
               />
               <Inputlabel
                 label="Número"
                 placeholder="Número"
-                onchange={props.setNumero}
+                value={numero}
+                onchange={setNumero}
               />
               <div className="w-75">
                 <label htmlFor="Email" className="mb-2 mx-2">
@@ -48,19 +67,21 @@ const ModalFornecedor = (props) => {
                   id="Email"
                   className="form-control mb-3 border-bottom"
                   placeholder="Email"
-                  onChange={(e) => props.setemail(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+              <button type="submit" style={{ display: "none" }}></button>
             </form>
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <span
               className="py-2 px-3 btnhover text-light rounded"
               role="button"
-              onClick={props.handleCreateFornecedor}
+              onClick={handleSubmit}
               data-bs-dismiss="modal"
             >
-              Criar
+              Salvar
             </span>
           </div>
         </div>
@@ -69,4 +90,4 @@ const ModalFornecedor = (props) => {
   );
 };
 
-export default ModalFornecedor;
+export default ModalEditarFornecedor;

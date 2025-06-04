@@ -1,7 +1,14 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router';
+
+
 
 const Banner = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/Catalogo");
+  };
   return (
     <section className="d-flex align-items-center justify-content-center text-center text-white"  style={{
         backgroundColor: '#000',
@@ -18,9 +25,10 @@ const Banner = () => {
           Qualidade, confiança e o melhor preço do mercado.
         </p>
         <div className="d-flex justify-content-center gap-3 mt-4">
-          <button className="btn btn-danger btn-lg">
-            Ver Catálogo →
-          </button>
+        <div className="d-flex justify-content-center gap-3 mt-4"> <div className=""> 
+          <button className="btn btn-danger btn-lg" onClick={handleClick} > Ver Catálogo → 
+            </button> 
+            </div>
           <a
          href="https://wa.me/551436028600"
          target="_blank"
@@ -32,8 +40,15 @@ const Banner = () => {
           
         </div>
       </div>
+      </div>
     </section>
   );
 };
 
 export default Banner;
+
+
+
+
+
+            
