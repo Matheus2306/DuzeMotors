@@ -25,11 +25,7 @@ const Header = () => {
     navigate("/SobreNos");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("usuarioLogado");
-    navigate("/login");
-  };
-  
+
   
   const loginexit = localStorage.getItem("usuarioLogado");
   let loginexitParse = [];
