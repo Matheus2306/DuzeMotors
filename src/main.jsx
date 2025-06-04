@@ -32,6 +32,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/moto/:id" element={<DetalhesMoto />} />
         <Route path="/Cartao" element={<Cartao />} />
         <Route path="/PagamentoConcluido" element={<PagamentoConcluido />} />
+        <Route path="/produtos-fornecedores" element={<ProdFornecedores />} />
         <Route
           path="/gerenciamento/UserManagement"
           element={<UserManagement />}
@@ -39,24 +40,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/gerenciamento" element={<Gerenciamento />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/perfil" element={<Perfil />} />
+        
       </Routes>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/Checkout" element={<Chekout />} />
-      <Route path="/Cadastro" element={<Cadastro />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/catalogo" element={<Catalogo />} />
-      <Route path="/Sobre" element={<Sobre />} />
-      <Route path="/moto/:id" element={<DetalhesMoto />} />
-      <Route path="/Cartao" element={<Cartao />} />
-      <Route path="/PagamentoConcluido" element={<PagamentoConcluido />} />
-      <Route path="/produtos-fornecedores" element={<ProdFornecedores />} />
-
-      
-      <Route path="/gerenciamento" element={<Gerenciamento />} />
-      <Route path="*" element={<NotFound />} />
-      <Route path="/perfil" element={<Perfil />} />
-    </Routes>
     </BrowserRouter>
   </StrictMode>
 );
