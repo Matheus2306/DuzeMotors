@@ -317,7 +317,7 @@ const Gerenciamento = () => {
             </div>
             <div className="text-end">
               <span
-                className="mx-5 text-decoration-underline text-primary fs-5"
+                className="mx-5 text-decoration-none text-black hovertext fs-5"
                 role="button"
                 onClick={handleClick}
               >
