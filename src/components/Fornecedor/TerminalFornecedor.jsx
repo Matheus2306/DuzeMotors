@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import HeaderTerminal from "../HeaderTerminal";
 import Itenterminal from "./Itenterminal";
 import ModalFornecedor from "./ModalFornecedor";

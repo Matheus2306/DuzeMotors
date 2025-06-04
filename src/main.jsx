@@ -16,6 +16,7 @@ import DetalhesMoto from './Pages/DetalhesMoto.jsx';
 import Cartao from './Pages/Cartao.jsx'
 import PagamentoConcluido from './Pages/PagamentoConcluido.jsx';
 import Gerenciamento from './Pages/Gerenciamento.jsx';
+import ProdFornecedores from './Pages/ProdFornecedores.jsx';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -30,7 +31,7 @@ createRoot(document.getElementById("root")).render(
       <Route path="/moto/:id" element={<DetalhesMoto />} />
       <Route path="/Cartao" element={<Cartao />} />
       <Route path="/PagamentoConcluido" element={<PagamentoConcluido />} />
-     
+      <Route path="/produtos-fornecedores" element={<ProdFornecedores />} />
 
       
       <Route path="/gerenciamento" element={<Gerenciamento />} />
