@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import Header from "../components/Header";
+import Footer from "../components/Geral/Footer";
 
 const DetalhesMoto = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [CardItem] = useState(state?.Motos || {});
- console.log(CardItem)
+  console.log(CardItem);
   return (
     <>
       <Header />
@@ -52,13 +52,14 @@ const DetalhesMoto = () => {
             )}
             {CardItem.price && (
               <p>
-                <strong>Preço:</strong> R$ {CardItem.price.toLocaleString('pt-BR')}
+                <strong>Preço:</strong> R${" "}
+                {CardItem.price.toLocaleString("pt-BR")}
               </p>
             )}
             <div className="mt-4">
               <button
                 className="btn btn-danger me-2"
-                onClick={() => alert('Compra realizada com sucesso!')}
+                onClick={() => alert("Compra realizada com sucesso!")}
               >
                 Comprar
               </button>
@@ -76,7 +77,8 @@ const DetalhesMoto = () => {
         <div className="mt-5">
           <h3 className="fw-bold">Mais Informações</h3>
           <p className="text-muted">
-            {CardItem.longDescription || 'Texto detalhado sobre a moto será adicionado aqui.'}
+            {CardItem.longDescription ||
+              "Texto detalhado sobre a moto será adicionado aqui."}
           </p>
         </div>
 
@@ -88,7 +90,7 @@ const DetalhesMoto = () => {
               <tbody>
                 {Object.entries(CardItem.specs).map(([key, value], index) => (
                   <tr key={index}>
-                    <th className="text-start" style={{ width: '30%' }}>
+                    <th className="text-start" style={{ width: "30%" }}>
                       {key}
                     </th>
                     <td className="text-start">{value}</td>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Login/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import Footer from "../components/Geral/Footer.jsx";
 import NotFound from "./NotFound";
 import { useNavigate } from "react-router";
 
@@ -104,7 +104,10 @@ export default function UserManagement() {
             <div className="overflow-y-scroll h-75">
               {filteredUsers.length > 0 ? (
                 filteredUsers.map((user) => (
-                  <div className="user-card border p-3 mb-2 rounded" key={user.id}>
+                  <div
+                    className="user-card border p-3 mb-2 rounded"
+                    key={user.id}
+                  >
                     {editingId === user.id ? (
                       <>
                         <input
@@ -131,7 +134,10 @@ export default function UserManagement() {
                           }
                           className="form-control mb-2"
                         />
-                        <button className="btn btn-primary me-2" onClick={saveEdit}>
+                        <button
+                          className="btn btn-primary me-2"
+                          onClick={saveEdit}
+                        >
                           Salvar
                         </button>
                         <button
