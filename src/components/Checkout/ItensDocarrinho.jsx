@@ -19,6 +19,34 @@ const ItensDocarrinho = () => {
     // Update the state and local storage
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    window.location.reload(); // Reload the page to reflect changes
+  };
+
+  const handleDecrementItem = (indexToDecrement) => {
+    // Decrement the quantity of the item
+    const updatedCart = [...cartItems];
+    if (updatedCart[indexToDecrement].quantity > 1) {
+      updatedCart[indexToDecrement].quantity -= 1;
+    } else {
+      // If quantity is 1, remove the item
+      updatedCart.splice(indexToDecrement, 1);
+    }
+
+    // Update the state and local storage
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    window.location.reload(); // Reload the page to reflect changes
+  };
+
+  const handleIncrementItem = (indexToIncrement) => {
+    // Increment the quantity of the item
+    const updatedCart = [...cartItems];
+    updatedCart[indexToIncrement].quantity += 1;
+
+    // Update the state and local storage
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    window.location.reload(); // Reload the page to reflect changes
   };
 
   const handleClick = () => {
@@ -27,8 +55,8 @@ const ItensDocarrinho = () => {
 
   //função de multiplicar o preço pela quantidade
   const calculateTotalPrice = (price, quantidade) => {
-    return price* quantidade;
-  }
+    return price * quantidade;
+  };
 
   return (
     <div className="w-100 shadow bg-light rounded-3 p-4">
@@ -47,6 +75,8 @@ const ItensDocarrinho = () => {
             price={item.price}
             quantity={item.quantity}
             onRemove={() => handleRemoveItem(index)} // Pass the remove handler
+            onDecrement={() => handleDecrementItem(index)} // Pass the decrement handler
+            onIncrement={() => handleIncrementItem(index)} // Pass the increment handler
             calculateTotalPrice={calculateTotalPrice}
           />
         ))}

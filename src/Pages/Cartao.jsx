@@ -34,9 +34,19 @@ export default function PaginaCartao() {
       alert('Por favor, preencha todos os campos!');
       return;
     }
+    //coleta o carrinho
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    // Verifica se o carrinho está vazio
+    if (cartItems.length === 0) {
+      alert('Seu carrinho está vazio! Adicione itens antes de prosseguir com o pagamento.');
+      return;
+    }else{
+      //reseta o carrinho do localstorage
+      localStorage.removeItem('cart');
+      navigate('/PagamentoConcluido');
+    }
 
     
-    navigate('/PagamentoConcluido');
   };
 
   return (
