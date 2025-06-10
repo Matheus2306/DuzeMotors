@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Footer from "../components/Geral/Footer.jsx";
+import Footer from "../components/Footer.jsx";
 import NotFound from "./NotFound";
 import { useNavigate } from "react-router";
-import Header from "../components/Login/Header.jsx";
+import Header from "../components/Header.jsx";
 
 
 export default function UserManagement() {

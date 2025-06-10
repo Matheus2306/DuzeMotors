@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Header from "../components/Header";
-import Footer from "../components/Geral/Footer";
+import Footer from "../components/Footer";
 
 const DetalhesMoto = () => {
   const { state } = useLocation();
