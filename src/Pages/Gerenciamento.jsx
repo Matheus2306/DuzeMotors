@@ -401,7 +401,7 @@ console.log(telefone)
                 target="#exampleModal"
                 setNome={setNome}
                 setCnpj={setCnpj}
-                setTelefone={setTelefone}
+                setNumero={setTelefone}
                 setEmail={setemail}
                 setIdFornecedorEditando={setIdFornecedorEditando}
                 nome={nome}
