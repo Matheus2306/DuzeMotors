@@ -22,10 +22,10 @@ const Gerenciamento = () => {
   }
 
   function validateCNPJ(cnpj) {
-    cnpj = cnpj.replace(/[^\d]+/g, '');
+    cnpj = cnpj.replace(/[^\d]+/g, "");
     if (cnpj.length !== 14) return false;
     if (/^(\d)\1{13}$/.test(cnpj)) return false;
-  
+
     const calcDigit = (base, weights) => {
       let sum = 0;
       for (let i = 0; i < weights.length; i++) {
@@ -34,14 +34,17 @@ const Gerenciamento = () => {
       const remainder = sum % 11;
       return remainder < 2 ? 0 : 11 - remainder;
     };
-  
+
     const base = cnpj.slice(0, 12);
     const digit1 = calcDigit(base, [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
-    const digit2 = calcDigit(base + digit1, [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
-  
+    const digit2 = calcDigit(
+      base + digit1,
+      [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    );
+
     return cnpj === base + digit1.toString() + digit2.toString();
   }
-    
+
   //coletar o usuario logado
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   //verifica se o usuario é adm
@@ -83,7 +86,6 @@ const Gerenciamento = () => {
   //fornecedores
   const [email, setemail] = useState("");
   const [cnpj, setCnpj] = useState("");
-  const [numero, setNumero] = useState("");
   const [nome, setNome] = useState("");
   const [fornecedores, setFornecedores] = useState(() => {
     const data = localStorage.getItem("fornecedores");
@@ -95,11 +97,15 @@ const Gerenciamento = () => {
   });
   const [fornecedoresExibidos, setFornecedoresExibidos] =
     useState(fornecedores);
+
+  const [telefone, setTelefone] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // Adicione este estado
   const [cnpjError, setCnpjError] = useState(false);
   const [camposError, setCamposError] = useState(false);
   const [idFornecedorEditando, setIdFornecedorEditando] = useState(null);
   const [cnpjErrado, setCnpjErrado] = useState(false);
+
+
 
   useEffect(() => {
     // Sempre que fornecedores OU searchTerm mudar, atualize a lista exibida
@@ -137,17 +143,20 @@ const Gerenciamento = () => {
   const camposResetados = () => {
     setNome("");
     setCnpj("");
-    setNumero("");
+    setTelefone("");
     setemail("");
   };
+
+  // Função para aplicar máscara internacional de telefone
+
+  // No seu input de telefone:
 
   //cria a função de fornecedores
   const handleCreateFornecedor = () => {
     // Aplica a máscara ao valor digitado
- 
 
     //verifica se todos os campos foram preenchidos
-    if (!nome || !cnpj || !numero || !email) {
+    if (!nome || !cnpj || !telefone || !email) {
       setCamposError(true);
       setTimeout(() => {
         setCamposError(false);
@@ -182,7 +191,7 @@ const Gerenciamento = () => {
             id: gerarId(),
             nome: nome,
             cnpj: cnpj,
-            numero: numero,
+            numero: telefone,
             email: email,
           };
 
@@ -199,6 +208,8 @@ const Gerenciamento = () => {
       }
     }
   };
+
+
 
   // Função para remover um fornecedor
   const handleRemoveFornecedor = (fornecedor) => {
@@ -358,6 +369,8 @@ const Gerenciamento = () => {
     localStorage.setItem("veiculo", JSON.stringify(veiculosAtualizados));
   };
 
+console.log(telefone)
+
   return (
     <div>
       {isAdm ? (
@@ -388,12 +401,12 @@ const Gerenciamento = () => {
                 target="#exampleModal"
                 setNome={setNome}
                 setCnpj={setCnpj}
-                setNumero={setNumero}
+                setTelefone={setTelefone}
                 setEmail={setemail}
                 setIdFornecedorEditando={setIdFornecedorEditando}
                 nome={nome}
                 cnpj={cnpj}
-                numero={numero}
+                numero={telefone}
                 email={email}
                 target2="#ModalEditarFornecedor"
               />
@@ -419,11 +432,11 @@ const Gerenciamento = () => {
               setNome={setNome}
               setemail={setemail}
               setCnpj={setCnpj}
-              setNumero={setNumero}
+              setNumero={setTelefone}
               handleCreateFornecedor={handleCreateFornecedor}
               nome={nome}
               cnpj={cnpj}
-              numero={numero}
+              numero={telefone}
               email={email}
               cnpjError={cnpjError}
               camposError={camposError}
@@ -456,8 +469,8 @@ const Gerenciamento = () => {
               setNome={setNome}
               cnpj={cnpj}
               setCnpj={setCnpj}
-              numero={numero}
-              setNumero={setNumero}
+              numero={telefone}
+              setNumero={setTelefone}
               email={email}
               setEmail={setemail}
               handleEditFornecedor={handleEditFornecedor}

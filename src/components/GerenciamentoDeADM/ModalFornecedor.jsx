@@ -1,5 +1,6 @@
 import React from "react";
 import Inputlabel from "../Cadastro/Inputlabel";
+import TelefoneBrasileiroInput from "react-telefone-brasileiro";
 
 const ModalFornecedor = (props) => {
   const handleSubmit = (e) => {
@@ -41,12 +42,21 @@ const ModalFornecedor = (props) => {
                 value={props.cnpj}
                 onchange={props.setCnpj}
               />
-              <Inputlabel
-                label="Número"
-                placeholder="Número"
+
+              <label htmlFor="Telefone" className="mb-2 mx-2">
+                Telefone
+              </label>
+              <TelefoneBrasileiroInput
+                placeholder="Telefone"
                 value={props.numero}
-                onchange={props.setNumero}
+                onChange={(ev) => props.setNumero(ev.target.value)}
+                temDDD
+                separaDDD
+                className="form-control mb-3 border-bottom"
+                inputMode="numeric"
+                maxLength={15}
               />
+
               <div className="w-75">
                 <label htmlFor="Email" className="mb-2 mx-2">
                   Email
@@ -76,7 +86,7 @@ const ModalFornecedor = (props) => {
           )}
           {props.cnpjErrado && (
             <span className="p-3 m-3 bg-danger-subtle text-danger rounded border border-2 border-danger">
-             CNPJ inválido
+              CNPJ inválido
             </span>
           )}
           <div className="modal-footer">
