@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import Footer from '../Components/Footer.jsx';
-import Header from '../Components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import Header from '../components/Header.jsx';
 
 export default function SobreNos() {
   const Navigate = useNavigate();
