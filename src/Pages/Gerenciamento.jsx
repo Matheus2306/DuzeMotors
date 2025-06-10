@@ -10,14 +10,46 @@ import ModalEditarProduto from "../components/GerenciamentoDeADM/ModalEditarProd
 import { useNavigate } from "react-router";
 
 const Gerenciamento = () => {
+  // Função para aplicar máscara ao CNPJ
+  function maskCNPJ(value) {
+    return value
+      .replace(/\D/g, "")
+      .replace(/^(\d{2})(\d)/, "$1.$2")
+      .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+      .replace(/\.(\d{3})(\d)/, ".$1/$2")
+      .replace(/(\d{4})(\d)/, "$1-$2")
+      .slice(0, 18);
+  }
+
+  function validateCNPJ(cnpj) {
+    cnpj = cnpj.replace(/[^\d]+/g, '');
+    if (cnpj.length !== 14) return false;
+    if (/^(\d)\1{13}$/.test(cnpj)) return false;
+  
+    const calcDigit = (base, weights) => {
+      let sum = 0;
+      for (let i = 0; i < weights.length; i++) {
+        sum += parseInt(base[i]) * weights[i];
+      }
+      const remainder = sum % 11;
+      return remainder < 2 ? 0 : 11 - remainder;
+    };
+  
+    const base = cnpj.slice(0, 12);
+    const digit1 = calcDigit(base, [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+    const digit2 = calcDigit(base + digit1, [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+  
+    return cnpj === base + digit1.toString() + digit2.toString();
+  }
+    
   //coletar o usuario logado
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   //verifica se o usuario é adm
   const isAdm = usuarioLogado && usuarioLogado.Role === "ADM";
   const navigate = useNavigate();
   const handleClick = () => {
-  navigate("/gerenciamento/UserManagement");
-  }
+    navigate("/gerenciamento/UserManagement");
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -67,6 +99,7 @@ const Gerenciamento = () => {
   const [cnpjError, setCnpjError] = useState(false);
   const [camposError, setCamposError] = useState(false);
   const [idFornecedorEditando, setIdFornecedorEditando] = useState(null);
+  const [cnpjErrado, setCnpjErrado] = useState(false);
 
   useEffect(() => {
     // Sempre que fornecedores OU searchTerm mudar, atualize a lista exibida
@@ -92,6 +125,15 @@ const Gerenciamento = () => {
     return Math.floor(Math.random() * 1000000);
   };
 
+  //useeffect para aplicar a mascara de cnpj
+  useEffect(() => {
+    if (cnpj) {
+      const cnpjMascarado = maskCNPJ(cnpj);
+      setCnpj(cnpjMascarado);
+      // Verifica se o CNPJ é válido
+    }
+  }, [cnpj]);
+
   const camposResetados = () => {
     setNome("");
     setCnpj("");
@@ -101,6 +143,9 @@ const Gerenciamento = () => {
 
   //cria a função de fornecedores
   const handleCreateFornecedor = () => {
+    // Aplica a máscara ao valor digitado
+ 
+
     //verifica se todos os campos foram preenchidos
     if (!nome || !cnpj || !numero || !email) {
       setCamposError(true);
@@ -125,23 +170,32 @@ const Gerenciamento = () => {
         //limpa os campos do modal
         camposResetados();
       } else {
-        // cria um novo fornecedor
-        const novoFornecedor = {
-          id: gerarId(),
-          nome: nome,
-          cnpj: cnpj,
-          numero: numero,
-          email: email,
-        };
-        //adiciona o novo fornecedor ao localStorage
-        fornecedoresStorage.push(novoFornecedor);
-        localStorage.setItem(
-          "fornecedores",
-          JSON.stringify(fornecedoresStorage)
-        );
-        setFornecedores(fornecedoresStorage);
-        //limpa os campos do modal
-        camposResetados();
+        if (!validateCNPJ(cnpj)) {
+          setCnpjErrado(true);
+          setTimeout(() => {
+            setCnpjErrado(false);
+          }, 3500);
+          camposResetados();
+        } else {
+          // cria um novo fornecedor
+          const novoFornecedor = {
+            id: gerarId(),
+            nome: nome,
+            cnpj: cnpj,
+            numero: numero,
+            email: email,
+          };
+
+          //adiciona o novo fornecedor ao localStorage
+          fornecedoresStorage.push(novoFornecedor);
+          localStorage.setItem(
+            "fornecedores",
+            JSON.stringify(fornecedoresStorage)
+          );
+          setFornecedores(fornecedoresStorage);
+          //limpa os campos do modal
+          camposResetados();
+        }
       }
     }
   };
@@ -373,6 +427,7 @@ const Gerenciamento = () => {
               email={email}
               cnpjError={cnpjError}
               camposError={camposError}
+              cnpjErrado={cnpjErrado}
             />
             <ModalProduto
               setNomeProduto={setNomeProduto}

@@ -74,6 +74,11 @@ const ModalFornecedor = (props) => {
               Preencha todos os campos
             </span>
           )}
+          {props.cnpjErrado && (
+            <span className="p-3 m-3 bg-danger-subtle text-danger rounded border border-2 border-danger">
+             CNPJ inválido
+            </span>
+          )}
           <div className="modal-footer">
             <span
               className="py-2 px-3 btnhover text-light rounded"
