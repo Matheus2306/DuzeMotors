@@ -66,6 +66,43 @@ const DetalhesMoto = () => {
             </div>
           </div>
         </div>
+
+        <div className="mt-5">
+          <h3 className="fw-bold">Características</h3>
+          <div className="d-flex flex-wrap gap-2">
+            {CardItem.features &&
+              CardItem.features.map((feature, index) => (
+                <span
+                  key={index}
+                  className="badge bg-primary text-light p-2"
+                  style={{ fontSize: '1rem' }}
+                >
+                  {feature}
+                </span>
+              ))}
+          </div>
+          </div>
+
+
+        {/*  Descrição Longa */}
+        <div className="mt-5">
+          <h3 className="fw-bold">Descrição</h3>
+          <p>{CardItem.longDescription}</p>
+        </div>
+
+        {/* Adicionando Especificações */}
+        <div className="mt-5">
+          <h3 className="fw-bold">Especificações</h3>
+          <ul className="list-group">
+            {CardItem.specs &&
+              Object.entries(CardItem.specs).map(([key, value], index) => (
+                <li key={index} className="list-group-item">
+                  <strong>{key}:</strong> {value}
+                </li>
+              ))}
+          </ul>
+        </div>
+
       </div>
       <Footer />
     </>
