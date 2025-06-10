@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-import Header from "../Components/Header.jsx";
 import Footer from "../Components/Footer.jsx";
 
 export default function SobreNos() {
