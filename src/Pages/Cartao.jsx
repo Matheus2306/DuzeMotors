@@ -4,6 +4,7 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router';
 
 export default function PaginaCartao() {
   const [state, setState] = useState({
@@ -23,10 +24,29 @@ export default function PaginaCartao() {
     setState({ ...state, focus: e.target.name });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Pagamento confirmado, Obgigado pela Preferência!');
-    console.log('Dados do cartão:', state);
+    const { number, name, expiry, cvc } = state;
+
+    if (!number || !name || !expiry || !cvc) {
+      alert('Por favor, preencha todos os campos!');
+      return;
+    }
+    //coleta o carrinho
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    // Verifica se o carrinho está vazio
+    if (cartItems.length === 0) {
+      alert('Seu carrinho está vazio! Adicione itens antes de prosseguir com o pagamento.');
+      return;
+    }else{
+      //reseta o carrinho do localstorage
+      localStorage.removeItem('cart');
+      navigate('/PagamentoConcluido');
+    }
+
+    
   };
 
   return (
@@ -103,9 +123,11 @@ export default function PaginaCartao() {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-danger w-100 fw-bold">
-              Confirmar Pagamento
-            </button>
+            <div className="d-flex justify-content-center mt-4">
+              <button type="submit" className="btn btn-lg btn-outline-danger">
+                Confirmar Pagamento
+              </button>
+            </div>
           </form>
         </div>
 

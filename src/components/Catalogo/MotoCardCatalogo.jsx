@@ -1,15 +1,39 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-
 const MotoCardCatalogo = ({ moto }) => {
-const navigate = useNavigate();
-const information = () => {
-  return {
-   ...moto
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+   // Get existing cart items from local storage
+   const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+   // Check if the item already exists in the cart
+   const existingItemIndex = cartItems.findIndex((item) => item.id === moto.id);
+ 
+   let updatedQuantity = 1; // Default quantity for new items
+ 
+   if (existingItemIndex !== -1) {
+     // If the item exists, increase its quantity
+     cartItems[existingItemIndex].quantity = (cartItems[existingItemIndex].quantity || 1) + 1;
+     updatedQuantity = cartItems[existingItemIndex].quantity; // Update the quantity for the toast
+   } else {
+     // If the item doesn't exist, add it with a quantity of 1
+     cartItems.push({ ...moto, quantity: 1 });
+   }
+ 
+   // Save updated cart to local storage
+   localStorage.setItem('cart', JSON.stringify(cartItems));
   };
-};
+
+
+  const information = () => {
+    return {
+      ...moto
+    };
+  };
+
   const handleDetailsClick = () => {
-    navigate(`/moto/${moto.id}`, {state: {Motos:information()}});
+    navigate(`/moto/${moto.id}`, { state: { Motos: information() } });
   };
 
   return (
@@ -47,8 +71,8 @@ const information = () => {
           </div>
           <div className="mt-auto d-flex justify-content-between">
             <button className="btn btn-outline-danger btn-sm" onClick={handleDetailsClick}>Ver Detalhes</button>
-            <button className="btn btn-danger btn-sm">
-              <i className="bi bi-cart"></i> Adicionar
+            <button className="btn btn-danger btn-sm" onClick={handleAddToCart}>
+              Comprar
             </button>
           </div>
         </div>

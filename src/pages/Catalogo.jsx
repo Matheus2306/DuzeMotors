@@ -297,6 +297,7 @@ const Catalogo = () => {
   });
 
   const marcasDisponiveis = ['Todas', ...new Set(motos.map((m) => m.brand))];
+  
 
   return (
     <>
