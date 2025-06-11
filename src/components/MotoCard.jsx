@@ -125,58 +125,6 @@ const MotoCard = ({
           </div>
         </div>
       </div>
-  className="modal fade"
-  id={modalId}
-  tabIndex="-1"
-  aria-labelledby={`${modalId}-label`}
-  aria-hidden="true"
->
-  <div className="modal-dialog modal-dialog-centered">
-    <div className="modal-content p-3">
-      <div className="modal-header border-0">
-        <h5 className="modal-title fw-bold text-uppercase" id={`${modalId}-label`}>
-          {title}
-        </h5>
-        
-        <button
-          type="button"
-          className="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div className="modal-body text-center">
-        <img
-          src={image}
-          alt={title}
-          className="img-fluid mb-3"
-          style={{
-            maxHeight: '200px',
-            objectFit: 'contain',
-          }}
-        />
-        <p className="text-muted">{description}</p>
-
-        
-      </div>
-      <div className=" border-0 justify-content-end ">
-        
-        <p className="fw-bold fs-5">
-          Preço:
-          <br />
-          <h1>
-         <span className="text-secondary "> {price.toLocaleString('pt-BR')}</span>
-          </h1>
-        </p>
-
-        <button type="button" className="  btn btn-outline-danger ">
-          Adicionar ao Carrinho
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
     </>
   );
 };
