@@ -38,7 +38,7 @@ console.log(specs)
           </div>
           <div>
             <button
-              className="btn btn-primary"
+              className="btn btn-outline-danger"
               data-bs-toggle="modal"
               data-bs-target={`#${modalId}`}
             >
@@ -50,68 +50,58 @@ console.log(specs)
 
       {/* Modal */}
       <div
-        className="modal fade"
-        id={modalId}
-        tabIndex="-1"
-        aria-labelledby={`${modalId}-label`}
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id={`${modalId}-label`}>
-                {title}
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <img
-                src={image}
-                alt={title}
-                className="img-fluid rounded mb-3"
-                style={{
-                  width: '100%',
-                  height: 'auto', // Ajustado para exibir a imagem inteira
-                  objectFit: 'contain',
-                  objectPosition: 'center',
-                }}
-              />
-              <p className="text-muted">{description}</p>
-              <p>
-                <strong>Preço:</strong> {price.toLocaleString('pt-BR')}
-              </p>
-
-              {/* Especificações */}
-              <h6 className="mt-4">Especificações:</h6>
-              <ul className="list-group">
-                {specs &&
-                  Object.entries(specs).map(([key, value], index) => (
-                    <li key={index} className="list-group-item">
-                      <strong>{key}:</strong> {value}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Fechar
-              </button>
-              <button type="button" className="btn btn-danger">
-                Adicionar ao Carrinho
-              </button>
-            </div>
-          </div>
-        </div>
+  className="modal fade"
+  id={modalId}
+  tabIndex="-1"
+  aria-labelledby={`${modalId}-label`}
+  aria-hidden="true"
+>
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content p-3">
+      <div className="modal-header border-0">
+        <h5 className="modal-title fw-bold text-uppercase" id={`${modalId}-label`}>
+          {title}
+        </h5>
+        
+        <button
+          type="button"
+          className="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
+      <div className="modal-body text-center">
+        <img
+          src={image}
+          alt={title}
+          className="img-fluid mb-3"
+          style={{
+            maxHeight: '200px',
+            objectFit: 'contain',
+          }}
+        />
+        <p className="text-muted">{description}</p>
+
+        
+      </div>
+      <div className=" border-0 justify-content-end ">
+        
+        <p className="fw-bold fs-5">
+          Preço:
+          <br />
+          <h1>
+         <span className="text-secondary "> {price.toLocaleString('pt-BR')}</span>
+          </h1>
+        </p>
+
+        <button type="button" className="  btn btn-outline-danger ">
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
     </>
   );
 };
