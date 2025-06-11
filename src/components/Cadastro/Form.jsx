@@ -5,7 +5,7 @@ const Form = (props) => {
   return (
       <form className="w-25 d-flex flex-column gap-3 p-3 bg-light rounded-3 shadow">
       <div className="d-flex flex-column justify-content-center align-items-center">
-        <span className="fw-semibold fs-4 py-2">Entrar</span>
+        <span className="fw-semibold fs-4 py-2">Cadastrar-se</span>
       </div>
       <div className="d-flex flex-column justify-content-center gap-3 align-items-center h-50">
         <div className="w-75">
