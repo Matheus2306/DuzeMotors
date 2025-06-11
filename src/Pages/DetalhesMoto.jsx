@@ -55,7 +55,7 @@ const DetalhesMoto = () => {
                 className="btn btn-danger me-2"
                 onClick={handleAddToCart}
               >
-                Add ao carrinho
+                Adicionar ao carrinho
               </button>
               <button
                 className="btn btn-outline-danger"

@@ -369,8 +369,6 @@ const Gerenciamento = () => {
     localStorage.setItem("veiculo", JSON.stringify(veiculosAtualizados));
   };
 
-console.log(telefone)
-
   return (
     <div>
       {isAdm ? (
@@ -401,7 +399,7 @@ console.log(telefone)
                 target="#exampleModal"
                 setNome={setNome}
                 setCnpj={setCnpj}
-                setTelefone={setTelefone}
+                setNumero={setTelefone}
                 setEmail={setemail}
                 setIdFornecedorEditando={setIdFornecedorEditando}
                 nome={nome}

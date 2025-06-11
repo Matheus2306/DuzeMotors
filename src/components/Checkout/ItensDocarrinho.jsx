@@ -61,28 +61,43 @@ const ItensDocarrinho = () => {
   return (
     <div className="w-100 shadow bg-light rounded-3 p-4">
       <div className="mb-2 border-bottom p-1">
-        <span className="fs-5 fw-semibold">Itens do carrinho ({cartItems.length})</span>
+        <span className="fs-5 fw-semibold">
+          Itens do carrinho ({cartItems.length})
+        </span>
       </div>
       <div
         className="d-flex flex-column align-items-center gap-3 overflow-y-scroll"
         style={{ maxHeight: "500px", minHeight: "500px" }}
       >
-        {cartItems.map((item, index) => (
-          <CardCarrinho
-            key={index}
-            image={item.image}
-            title={item.title}
-            price={item.price}
-            quantity={item.quantity}
-            onRemove={() => handleRemoveItem(index)} // Pass the remove handler
-            onDecrement={() => handleDecrementItem(index)} // Pass the decrement handler
-            onIncrement={() => handleIncrementItem(index)} // Pass the increment handler
-            calculateTotalPrice={calculateTotalPrice}
-          />
-        ))}
+        {cartItems.length === 0 ? (
+          <div
+            className="alert alert-danger text-center mt-5 w-100"
+            role="alert"
+          >
+            O carrinho está vazio!
+          </div>
+        ) : (
+          cartItems.map((item, index) => (
+            <CardCarrinho
+              key={index}
+              image={item.image}
+              title={item.title}
+              price={item.price}
+              quantity={item.quantity}
+              onRemove={() => handleRemoveItem(index)} // Pass the remove handler
+              onDecrement={() => handleDecrementItem(index)} // Pass the decrement handler
+              onIncrement={() => handleIncrementItem(index)} // Pass the increment handler
+              calculateTotalPrice={calculateTotalPrice}
+            />
+          ))
+        )}
       </div>
       <div className="p-3 d-flex align-items-center border-top mt-4">
-        <span role="button" onClick={handleClick} className="p-2 border-1 shadow-sm">
+        <span
+          role="button"
+          onClick={handleClick}
+          className="p-2 border-1 shadow-sm"
+        >
           Continuar Comprando
         </span>
       </div>
