@@ -1,29 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-
-// Exemplo de Inputlabel.jsx
-const Inputlabel = ({ label, placeholder, value, onchange }) => (
-  <div className="w-75">
-    <label className="mb-2 mx-2">{label}</label>
-    <input
-      className="form-control mb-3"
-      placeholder={placeholder}
-      value={value}
-      onChange={onchange}
-    />
-  </div>
-);
+import TelefoneBrasileiroInput from "react-telefone-brasileiro";
+import Inputlabel from "./Inputlabel";
+import Form from "./Form";
 
 const FormCadastro = () => {
-  const [Senha, setSenha] = useState("");
+
   const [Nome, setNome] = useState("");
-  const [Email, setEmail] = useState("");
   const [CPF, setCPF] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Senha, setSenha] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [Role, setRole] = useState("user");
   const [erros, setErros] = useState({});
-  const [erro, seterro] = useState(false);
+  const [estado, setEstado] = useState(false); 
   const navigate = useNavigate();
-
   // Máscara para CPF
   const handleCPFChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
@@ -33,27 +24,39 @@ const FormCadastro = () => {
     setCPF(value);
   };
 
+  // Função para enviar novas informações ao localStorage e mudar o estado do usuário para true
+  const handleSubmit = () => {
+    // Obter os usuários cadastrados no localStorage
+    const usuariosExistentes =
+      JSON.parse(localStorage.getItem("usuariosCadastro")) || [];
+
+    // Criar o novo usuário com estado inicial
+    const usuarioAtualizado = {
+      id: Math.floor(Math.random() * 1000000), // Gerar um ID único
+      email: Email,
+      senha: Senha,
+    };
+    setEstado(true)
+    // Adicionar o novo usuário ao array de usuários
+    usuariosExistentes.push(usuarioAtualizado);
+
+    // Salvar no localStorage
+    localStorage.setItem("usuariosCadastro", JSON.stringify(usuariosExistentes));
+
+    // Atualizar o estado para permitir o próximo passo
+    setEstado(true);
+
+    alert("Cadastro inicial concluído! Complete o restante do cadastro.");
+  };
+
   // Validações
   const validarNome = (nome) => nome.trim().length >= 3;
-  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const validarSenha = (senha) => {
-    return (
-      senha.length >= 8 &&
-      /[A-Z]/.test(senha) && // pelo menos uma maiúscula
-      /[a-z]/.test(senha) && // pelo menos uma minúscula
-      /[^A-Za-z0-9]/.test(senha) // pelo menos um caractere especial
-    );
-  };
   const validarCPF = (cpf) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
 
   const criarUsuario = () => {
     const novosErros = {};
     if (!validarNome(Nome))
       novosErros.Nome = "Nome deve ter pelo menos 3 letras.";
-    if (!validarEmail(Email)) novosErros.Email = "Email inválido.";
-    if (!validarSenha(Senha))
-      novosErros.Senha =
-        "Senha deve ter pelo menos 8 caracteres, uma maiúscula, uma minúscula e um caractere especial.";
     if (!validarCPF(CPF))
       novosErros.CPF = "CPF inválido. Use o formato 000.000.000-00.";
 
@@ -63,9 +66,8 @@ const FormCadastro = () => {
     const usuario = {
       id: Math.floor(Math.random() * 1000000),
       nome: Nome,
-      email: Email,
-      senha: Senha,
       cpf: CPF,
+      telefone: telefone,
       Role: Role,
     };
 
@@ -76,12 +78,29 @@ const FormCadastro = () => {
       "usuariosCadastro",
       JSON.stringify(usuariosExistentes)
     );
-    navigate("/login");
+
+    //envia para o localstorege de login o usuario criado
+    const usuarioLogin = {
+      id: usuario.id,
+      nome: usuario.nome,
+      cpf: usuario.cpf,
+      telefone: usuario.telefone,
+      role: usuario.Role,
+      email: Email,
+      senha: Senha,
+    };
+    localStorage.setItem(
+      "usuarioLogado",
+      JSON.stringify(usuarioLogin)
+    );
+    alert("Cadastro completo com sucesso!");
+    navigate("/")
+   
   };
 
-  return (
-    <div className="w-25 shadow d-flex justify-center align-items-center flex-column rounded bg-light p-4">
-      <span className="fs-4 fw-semibold">Cadastro</span>
+  return estado ? (
+      <div className="w-25 shadow d-flex justify-center align-items-center flex-column rounded bg-light p-4">
+      <span className="fs-4 fw-semibold">Complete o Cadastro</span>
 
       <div className="w-100 d-flex flex-column justify-content-center align-items-center mt-4">
         <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
@@ -89,43 +108,40 @@ const FormCadastro = () => {
             label="Nome"
             placeholder="Nome"
             value={Nome}
-            onchange={(e) => setNome(e.target.value)}
+            onChange={(e) => setNome(e.target.value)}
           />
           {erros.Nome && <span style={{ color: "red" }}>{erros.Nome}</span>}
         </div>
-        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
-          <Inputlabel
-            label="Email"
-            placeholder="Email"
-            value={Email}
-            onchange={(e) => setEmail(e.target.value)}
-          />
-          {erros.Email && <span style={{ color: "red" }}>{erros.Email}</span>}
-        </div>
 
-        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
-          <Inputlabel
-            label="Senha"
-            placeholder="Senha"
-            value={Senha}
-            onchange={(e) => setSenha(e.target.value)}
-          />
-          {erros.Senha && (
-            <span className="text-danger text-center w-75">{erros.Senha}</span>
-          )}
-        </div>
-
-        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3">
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 mb-3 ">
           <Inputlabel
             label="CPF"
             placeholder="CPF"
             value={CPF}
-            onchange={handleCPFChange}
+            onChange={handleCPFChange}
           />
           {erros.CPF && (
             <span className="text-danger text-center w-75">{erros.CPF}</span>
           )}
         </div>
+
+        <div className="d-flex justify-content-center flex-column align-items-center w-100 mb-3">
+          <div className="w-75">
+
+          <label htmlFor="Telefone" className="mb-2 mx-2">Telefone</label>
+        <TelefoneBrasileiroInput
+        placeholder="(XX) XXXXX-XXXX"
+        value={telefone}
+        onChange={(ev) => setTelefone(ev.target.value)}
+        separaNono
+        temDDD
+        className="form-control mb-3 border-bottom"
+        inputMode="numeric"
+        maxLength={15}
+/>
+        </div>
+        </div>
+
       </div>
       <div className="mt-3">
         <span
@@ -140,8 +156,14 @@ const FormCadastro = () => {
         <i className="bi bi-bicycle fs-3 text-danger"></i>
         <span className="fs-5 fw-semibold">DuZéMotors</span>
       </div>
-    </div>
-  );
+    </div>):(
+      <Form 
+      handleSubmit={handleSubmit}
+      setEmail={setEmail}
+      setSenha={setSenha}
+      />
+    )
+    
 };
 
 export default FormCadastro;

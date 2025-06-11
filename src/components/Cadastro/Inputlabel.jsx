@@ -7,12 +7,12 @@ const Inputlabel = (props) => {
         {props.label}
       </label>
       <input
-        type={props.type || "text"} // Permite definir o tipo do input, padrão é "text"
+        type={props.type || "text"}
         id={props.label}
         className="form-control mb-3 border-bottom"
         placeholder={props.placeholder}
-        value={props.value} // Torna o input controlado
-        onChange={(e) => props.onchange(e.target.value)}
+        value={props.value}
+        onChange={props.onChange} // <-- Mantém o evento intacto
       />
     </div>
   );
