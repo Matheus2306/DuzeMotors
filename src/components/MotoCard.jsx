@@ -2,9 +2,20 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-const MotoCard = ({ image, title, description, price, specs }) => {
-  const modalId = `modal-${title.replace(/\s+/g, '-')}`;
-console.log(specs)
+const MotoCard = ({
+  imagem,
+  nome,
+  marca,
+  modelo,
+  ano,
+  valor,
+  quilometragem,
+  tipoDeCombustivel,
+  transmissao,
+  estoque,
+  veiculoId
+}) => {
+  const modalId = `modal-${veiculoId}`;
   return (
     <>
       {/* Card */}
@@ -18,13 +29,13 @@ console.log(specs)
         }}
       >
         <img
-          src={image}
-          className="card-img-top"
-          alt={title}
+          src={`http:${imagem}`}
+          className="card-img-top overflow-y-hidden"
+          alt={nome}
           style={{
-            width: '100%',
+            width: '350px',
             height: '350px',
-            objectFit: 'contain', // Ajustado para exibir a imagem inteira
+            objectFit: 'contain',
             objectPosition: 'center',
           }}
         />
@@ -33,8 +44,15 @@ console.log(specs)
           style={{ flex: '1 1 auto' }}
         >
           <div>
-            <h5 className="card-title">{title}</h5>
-            <p className="card-text">{description}</p>
+            <h5 className="card-title">{nome}</h5>
+            <p className="card-text">{marca} {modelo} - {ano}</p>
+            <p className="card-text fw-bold text-danger">R$ {Number(valor).toLocaleString('pt-BR')}</p>
+            <ul className="list-group list-group-flush text-start">
+              <li className="list-group-item">Quilometragem: {quilometragem}</li>
+              <li className="list-group-item">Combustível: {tipoDeCombustivel}</li>
+              <li className="list-group-item">Transmissão: {transmissao}</li>
+              <li className="list-group-item">Estoque: {estoque}</li>
+            </ul>
           </div>
           <div>
             <button
@@ -60,7 +78,7 @@ console.log(specs)
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id={`${modalId}-label`}>
-                {title}
+                {nome}
               </h5>
               <button
                 type="button"
@@ -71,30 +89,25 @@ console.log(specs)
             </div>
             <div className="modal-body">
               <img
-                src={image}
-                alt={title}
+                src={imagem}
+                alt={nome}
                 className="img-fluid rounded mb-3"
                 style={{
                   width: '100%',
-                  height: 'auto', // Ajustado para exibir a imagem inteira
+                  height: 'auto',
                   objectFit: 'contain',
                   objectPosition: 'center',
                 }}
               />
-              <p className="text-muted">{description}</p>
-              <p>
-                <strong>Preço:</strong> {price.toLocaleString('pt-BR')}
-              </p>
-
-              {/* Especificações */}
-              <h6 className="mt-4">Especificações:</h6>
               <ul className="list-group">
-                {specs &&
-                  Object.entries(specs).map(([key, value], index) => (
-                    <li key={index} className="list-group-item">
-                      <strong>{key}:</strong> {value}
-                    </li>
-                  ))}
+                <li className="list-group-item"><strong>Marca:</strong> {marca}</li>
+                <li className="list-group-item"><strong>Modelo:</strong> {modelo}</li>
+                <li className="list-group-item"><strong>Ano:</strong> {ano}</li>
+                <li className="list-group-item"><strong>Valor:</strong> R$ {Number(valor).toLocaleString('pt-BR')}</li>
+                <li className="list-group-item"><strong>Quilometragem:</strong> {quilometragem}</li>
+                <li className="list-group-item"><strong>Combustível:</strong> {tipoDeCombustivel}</li>
+                <li className="list-group-item"><strong>Transmissão:</strong> {transmissao}</li>
+                <li className="list-group-item"><strong>Estoque:</strong> {estoque}</li>
               </ul>
             </div>
             <div className="modal-footer">
