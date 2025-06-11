@@ -101,7 +101,7 @@ const Formulario = () => {
             role="button"
             onClick={handlecadastro}
           >
-            Crie
+           Cadastrar-se
           </span>
         </small>
         <span
