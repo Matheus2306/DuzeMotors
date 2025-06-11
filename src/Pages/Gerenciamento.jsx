@@ -369,8 +369,6 @@ const Gerenciamento = () => {
     localStorage.setItem("veiculo", JSON.stringify(veiculosAtualizados));
   };
 
-console.log(telefone)
-
   return (
     <div>
       {isAdm ? (

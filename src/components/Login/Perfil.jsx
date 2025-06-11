@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import HeaderLogs from '../HeaderLogs';
 import Footer from '../Footer';
+import TelefoneBrasileiroInput from 'react-telefone-brasileiro';
 
 export default function Perfil() {
   const navigate = useNavigate();
@@ -12,10 +13,12 @@ export default function Perfil() {
   const [metodoPagamento, setMetodoPagamento] = useState('');
   const [cpf, setCpf] = useState('');
   const [id, setId] = useState(null); // pra identificar o usuário logado
-
+const [Role, setRole] = useState(''); // para armazenar o papel do usuário
   useEffect(() => {
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
     if (usuarioLogado) {
+      setRole(usuarioLogado.Role || 'teste'); // Define o papel do usuário, se existir
       setNome(usuarioLogado.nome || '');
       setCpf(usuarioLogado.cpf || '');
       setTelefone(usuarioLogado.telefone || '');
@@ -24,6 +27,7 @@ export default function Perfil() {
       setMetodoPagamento(usuarioLogado.metodoPagamento || '');
       setId(usuarioLogado.id); // guarda o ID pra atualizar depois
     }
+    console.log(usuarioLogado.Role)
   }, []);
 
   const validarEmail = (email) => {
@@ -72,6 +76,7 @@ export default function Perfil() {
       email,
       senha,
       metodoPagamento,
+      Role,
     };
 
     // Atualiza o usuário logado
@@ -105,15 +110,18 @@ export default function Perfil() {
           />
         </div>
 
-        <div className="perfil-secao">
-          <label>Telefone:</label>
-          <input
-            type="tel"
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-            placeholder="(00) 00000-0000"
-            maxLength={15}
-          />
+       
+          <div className="perfil-secao">
+          <label htmlFor="Telefone">Telefone:</label>
+        <TelefoneBrasileiroInput
+        placeholder="(XX) XXXXX-XXXX"
+        value={telefone}
+        onChange={(ev) => setTelefone(ev.target.value)}
+        separaNono
+        temDDD
+        inputMode="numeric"
+        maxLength={15}
+/>
         </div>
 
         <div className="perfil-secao">
