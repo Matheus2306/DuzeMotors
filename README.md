@@ -37,16 +37,16 @@ git clone https://github.com/Matheus2306/ConcessionariaDuZe.git
 
 cd ConcessionariaDuZe
 ``` 
-
+##
 
 ### Funcionalidades Implementadas
 
-1.Catálogo de motos com filtros por marca, preço e busca.
-2.Cadastro e login de usuários.
-3.Perfil do usuário com edição de dados e método de pagamento.
-4.Carrinho de compras e checkout com integração de cartão.
-5.Gerenciamento de estoque e fornecedores (restrito a administradores).
-6.Avaliações de clientes e exibição de localização.
-7.Página de Sobre com informações da equipe.
-8.Página de erro personalizada (404).
-9.Deploy automatizado do frontend (Vercel).
+- 1.**Catálogo de motos com filtros por marca, preço e busca.**
+- 2.**Cadastro e login de usuários.**
+- 3.**Perfil do usuário com edição de dados e método de pagamento.**
+- 4.**Carrinho de compras e checkout com integração de cartão.**
+- 5.**Gerenciamento de estoque e fornecedores (restrito a administradores).**
+- 6.**Avaliações de clientes e exibição de localização.**
+- 7.**Página de Sobre com informações da equipe.**
+- 8.**Página de erro personalizada (404).**
+- 9.**Deploy automatizado do frontend (Vercel).**
